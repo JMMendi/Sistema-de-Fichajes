@@ -9,8 +9,6 @@
         </x-slot>
         <x-slot name="content">
             <div class="mb-5">
-                <!-- Este campo no existe si es un usuario normal. Si es administrador existe -->
-                @if(Auth::user()->admin)
                 <label for="user_id" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Usuario</label>
                 <select name="user_id" wire:model="cform.user_id" id="user_id">
                     <option value="">Seleccione un Usuario</option>
@@ -19,7 +17,6 @@
                     @endforeach
                 </select>
                 <x-input-error for="cform.user_id"/>
-                @endif
             </div>
             <!-- Ponemos una hora de Inicio y una hora de Salida -->
             <div class="mb-5">

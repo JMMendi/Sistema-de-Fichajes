@@ -4,9 +4,11 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                 <div class="flex mt-3 mb-3">
+                    @if(Auth::user()->admin)
                     <div class="ml-5">
                         @livewire('fichaje')
                     </div>
+                    @endif
                     @if(count($fichaje) < 1)
                         <div class="ml-5">
                         @livewire('fichar-entrada')

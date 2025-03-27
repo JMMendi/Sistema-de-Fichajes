@@ -18,9 +18,8 @@ class Fichaje extends Component
     public function render()
     {
         $usuarios = User::select('id', 'nombre')->get();
-        $usuario = Auth::user()->id;
         
-        return view('livewire.fichaje', compact('usuario', 'usuarios'));
+        return view('livewire.fichaje', compact('usuarios'));
     }
 
     public function store() {

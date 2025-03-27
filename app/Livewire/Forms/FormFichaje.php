@@ -12,7 +12,7 @@ use Livewire\Form;
 class FormFichaje extends Form
 {
     // Primero validaciones
-    public Fichar $ficha;
+    public ?Fichar $ficha;
     public $fechaFin = null;
 
     #[Rule(['required', 'exists:users,id'])]
@@ -26,12 +26,7 @@ class FormFichaje extends Form
 
     public function formStoreFichaje()
     {
-        if (Auth::user()->admin) {
-            $this->tipo = "Manual";
-        } else {
-            $this->user_id = Auth::user()->id;
-            $this->tipo = "Diario";
-        }
+        $this->tipo = "Manual";
 
         $this->validate();
 
