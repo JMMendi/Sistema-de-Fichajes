@@ -17,8 +17,8 @@ class DatabaseSeeder extends Seeder
         User::factory(10)->create();
 
         User::factory()->create([
-            'nombre' => 'admin',
-            'apellidos' => 'Administrador',
+            'username' => 'admin',
+            'nombre' => 'Administrador',
             'password' => 'secret0',
             'horasMes' => 120,
             'horasDia' => 6,

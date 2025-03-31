@@ -3,6 +3,7 @@
 namespace App\Livewire\Forms;
 
 use App\Models\Fichar;
+use App\Models\User;
 use Carbon\Carbon;
 use Livewire\Attributes\Rule;
 use Livewire\Attributes\Validate;
@@ -13,8 +14,11 @@ class FormUpdateFichaje extends Form
     public ?Fichar $ficha = null;
     public $fechaFin = null;
 
-    // #[Rule(['required', 'exists:users,id'])]
-    // public int $user_id = -1;
+    #[Rule(['required', 'exists:users,id'])]
+    public int $user_id = -1;
+
+    #[Rule(['required', 'exists:users,nombre'])]
+    public string $nombre = "";
 
     #[Rule(['required', 'date', 'before_or_equal:today'])]
     public $fechaInicio = -1;
@@ -24,9 +28,11 @@ class FormUpdateFichaje extends Form
 
     public function setFichaje(Fichar $ficha) {
         $this->ficha = $ficha;
-        // $this->user_id = $ficha->user_id;
-        $this->fechaInicio = $ficha->fechaInicio;
-        $this->fechaFin = $ficha->fechaFin;
+        $this->user_id = $ficha->user_id;
+        $this->fechaInicio = $ficha->fechaInicio->format('Y-m-d H:i:s');
+        $this->fechaFin = $ficha->fechaFin->format('Y-m-d H:i:s');
+        $usuario = User::findOrFail($this->user_id);
+        $this->nombre = $usuario->nombre;
     }
 
     public function fUpdateFichaje() {

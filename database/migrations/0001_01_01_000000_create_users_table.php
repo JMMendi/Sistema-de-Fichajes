@@ -13,12 +13,11 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
+            $table->string('username');
             $table->string('nombre');
-            $table->string('apellidos');
             $table->string('password');
             $table->string('DNI');
             $table->integer('horasMes');
-            $table->integer('horasDia');
             $table->boolean('admin')->default(false);
             $table->rememberToken();
             $table->foreignId('current_team_id')->nullable();

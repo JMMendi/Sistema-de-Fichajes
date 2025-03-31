@@ -6,9 +6,15 @@ use App\Livewire\Forms\FormUpdateFichaje;
 use App\Models\Fichar;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class ShowFichas extends Component
 {
+    use WithPagination;
+
+    public string $campo="fichars.created_at", $orden="asc";
+    public string $texto="";
+
     public bool $abrirModalEditar = false;
     public FormUpdateFichaje $uform;
 
@@ -16,13 +22,27 @@ class ShowFichas extends Component
     {
         $fichas = DB::table('fichars')
         ->join('users', 'user_id', '=', 'users.id')
-        ->select('nombre', 'fechaInicio', 'fechaFin', 'fichars.id as fichaId', 'fichars.created_at', DB::raw('fechaInicio - fechaFin as horas'))
-        // modificar la consulta del atributo calculado
-        ->orderBy('fichars.created_at', 'desc')
+        ->select('nombre', 'fechaInicio', 'fechaFin', 'tipo', 'fichars.id as fichaId', 'fichars.created_at', DB::raw('hour(timediff(fechaInicio, fechaFin)) as horas'))
+        ->where(function($q) {
+            $q->where('nombre', 'like', "%{$this->texto}%")
+            ->orWhere('fechaInicio', 'like', "%{$this->texto}%")
+            ->orWhere('tipo', 'like', "%{$this->texto}%");
+        })
+        ->orderBy($this->campo, $this->orden)
         ->paginate(10);
 
 
         return view('livewire.show-fichas', compact("fichas"));
+    }
+
+    public function ordenar(string $campo){
+        $this->orden=($this->orden=='asc') ? 'desc' : 'asc';
+        $this->campo=$campo;
+    }
+
+    // Para que funcione en cualquier página de la paginación
+    public function updatingTexto(){
+        $this->resetPage();
     }
 
     // Para el Update/Edit

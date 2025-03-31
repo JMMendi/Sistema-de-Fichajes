@@ -18,8 +18,8 @@ class FicharFactory extends Factory
     public function definition(): array
     {
         return [
-            'fechaInicio' => fake()->dateTimeBetween('+1 week', '+3 week'),
-            'fechaFin' => fake()->dateTimeBetween('+1 week', '+3 week'),
+            'fechaInicio' => fake()->dateTimeInInterval('-1 week', '+1 day'),
+            'fechaFin' => fake()->dateTimeInInterval('-1 week', '+1 day'),
             'user_id' => User::all()->random()->id,
             'tipo' => fake()->randomElement(['Manual', 'Diario'])
         ];

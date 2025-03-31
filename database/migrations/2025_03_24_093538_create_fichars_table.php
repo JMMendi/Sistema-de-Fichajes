@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('fichars', function (Blueprint $table) {
             $table->id();
-            $table->date('fechaInicio');
-            $table->date('fechaFin')->nullable();
+            $table->dateTime('fechaInicio');
+            $table->dateTime('fechaFin')->nullable();
             $table->boolean('modificado')->default(false);
             $table->enum('tipo', ['Manual', 'Diario']);
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
