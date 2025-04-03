@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\DashboardController;
 use App\Http\Middleware\isAdminMiddleware;
 use App\Livewire\InformeMensual;
 use App\Livewire\Inicio;
@@ -20,3 +19,4 @@ Route::middleware([
     Route::get('/informe', InformeMensual::class)->name('informe')->middleware(isAdminMiddleware::class);
     Route::get('/show-fichas', ShowFichas::class)->name('listado')->middleware(isAdminMiddleware::class);
 });
+

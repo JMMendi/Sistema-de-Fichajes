@@ -16,6 +16,7 @@ class Fichar extends Model
         'fechaFin',
         'user_id',
         'tipo',
+        'modificado',
     ];
 
     public function user() : BelongsTo {

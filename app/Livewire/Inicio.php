@@ -18,9 +18,9 @@ class Inicio extends Component
         return view('livewire.inicio', compact('fichaje'));
     }
     
-    public function basura(){
-        header("Location:/up");    
-        dd("Evento escuchado");
-    }   
+    // public function basura(){
+    //     header("Location:/up");    
+    //     dd("Evento escuchado");
+    // }   
 
 }

@@ -13,12 +13,11 @@ class FormUpdateFichaje extends Form
 {
     public ?Fichar $ficha = null;
     public $fechaFin = null;
+    public string $nombre = "";
+
 
     #[Rule(['required', 'exists:users,id'])]
     public int $user_id = -1;
-
-    #[Rule(['required', 'exists:users,nombre'])]
-    public string $nombre = "";
 
     #[Rule(['required', 'date', 'before_or_equal:today'])]
     public $fechaInicio = -1;
@@ -36,12 +35,16 @@ class FormUpdateFichaje extends Form
     }
 
     public function fUpdateFichaje() {
+        $this->tipo = "Manual";
+
         $this->validate();
+
 
         $this->ficha->update([
             'fechaInicio' => Carbon::parse($this->fechaInicio),
             'fechaFin' => Carbon::parse($this->fechaFin),
-            'tipo' => "Manual",
+            'tipo' => $this->tipo,
+            'modificado' => true,
         ]);
     }
 

@@ -4,11 +4,13 @@ namespace App\Livewire;
 
 use App\Models\Fichar;
 use App\Models\User;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
 class InformeMensual extends Component
 {
+
     public int $user_id = -1;
 
     public $fechaInicio;
@@ -16,6 +18,12 @@ class InformeMensual extends Component
     public $fechaFin;
 
     public bool $show = false;
+
+    public $fichas;
+
+    public $empleado = null;
+
+    public string $html = "";
 
     public function render()
     {
@@ -27,14 +35,24 @@ class InformeMensual extends Component
     {
         $fichas = Fichar::select('user_id', 'fechaInicio', 'fechaFin', 'tipo', DB::raw('hour(timediff(fechaInicio, fechaFin)) as horas'))
             ->where('user_id', '=', $this->user_id)
-            ->where('fechaInicio', '=>', $this->fechaInicio)
-            ->where('fechaFin', '<=', $this->fechaFin)
+            ->where('fechaInicio', '>', $this->fechaInicio)
+            ->where('fechaFin', '<', $this->fechaFin)
             ->orderBy('fechaInicio', 'desc')
             ->get();
 
-            $this->show = true;
+        $this->fichas = $fichas;
 
-        $this->dispatch('informeCreado', fichas: $fichas)->to(Informe::class);
-        
+        $this->empleado = User::findOrFail($this->user_id);
+
+        $this->show = true;
+    }
+
+    public function generarPdf() 
+    {
+        $pdf = Pdf::loadHTML();
+        // return $pdf->download($this->empleado->nombre . " - " . \Carbon\Carbon::parse($this->fechaInicio)->format('d-m-Y') . "_" . \Carbon\Carbon::parse($this->fechaFin)->format('d-m-Y'). ".pdf");
+        return response()->streamDownload(function () use ($pdf) {
+            echo $pdf->stream();
+            }, $this->empleado->nombre . " - " . \Carbon\Carbon::parse($this->fechaInicio)->format('d-m-Y') . "_" . \Carbon\Carbon::parse($this->fechaFin)->format('d-m-Y').".pdf");
     }
 }

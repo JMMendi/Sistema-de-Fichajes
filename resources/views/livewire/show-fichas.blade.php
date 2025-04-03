@@ -4,7 +4,7 @@
             <div class="w-full">
                 <input type="search" class="w-1/3" wire:model.live="texto" placeholder="Buscar...">
             </div>
-            <div>
+            <div class="mt-2">
                 @livewire('fichaje')
             </div>
         </section>
@@ -15,10 +15,10 @@
                         Nombre <i class="fas fa-sort ml-1"></i>
                     </th>
                     <th scope="col" class="px-6 py-3 cursor-pointer" wire:click="ordenar('fechaInicio')">
-                        Inicio <i class="fas fa-sort ml-1"></i>
+                        Fecha - (Hora) Inicio <i class="fas fa-sort ml-1"></i>
                     </th>
                     <th scope="col" class="px-6 py-3 cursor-pointer" wire:click="ordenar('fechaFin')">
-                        Fin <i class="fas fa-sort ml-1"></i>
+                        Fecha - (Hora) Fin <i class="fas fa-sort ml-1"></i>
                     </th>
                     <th scope="col" class="px-6 py-3 cursor-pointer" wire:click="ordenar('horas')">
                         Horas del día <i class="fas fa-sort ml-1"></i>
@@ -38,10 +38,10 @@
                         {{$item->nombre}}
                     </th>
                     <td class="px-6 py-4">
-                        {{$item->fechaInicio}}
+                        {{\Carbon\Carbon::parse($item->fechaInicio)->format('d/m/Y - (H:i:s)')}}
                     </td>
                     <td class="px-6 py-4">
-                        {{$item->fechaFin}}
+                        {{\Carbon\Carbon::parse($item->fechaFin)->format('d/m/Y - (H:i:s)')}}
                     </td>
                     <td class="px-6 py-4">
                         {{$item->horas}}

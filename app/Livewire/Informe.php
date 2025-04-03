@@ -8,6 +8,9 @@ use Livewire\Component;
 
 class Informe extends Component
 {
+    public $fichas;
+
+    
     #[On('informeCreado')]
     public function render($fichas)
     {

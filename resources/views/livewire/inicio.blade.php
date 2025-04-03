@@ -3,14 +3,9 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-                <div class="flex mt-3 mb-3">
-                    @if(Auth::user()->admin)
-                    <div class="ml-5">
-                        @livewire('fichaje')
-                    </div>
-                    @endif
+                <div class="flex justify-center mt-3 mb-3">
                     @if(count($fichaje) < 1)
-                        <div class="ml-5">
+                        <div class="mb-5 mt-5">
                         @livewire('fichar-entrada')
                 </div>
                 @else
@@ -19,20 +14,8 @@
                 </div>
                 @endif
             </div>
-            <div id='calendar'></div>
+            @livewire('calendario')
         </div>
     </div>
-    <script defer>
-        document.addEventListener('DOMContentLoaded', function() {
-            var calendarEl = document.getElementById('calendar');
-            var calendar = new FullCalendar.Calendar(calendarEl, {
-                initialView: 'dayGridMonth',
-                aspectRatio: 2,
-                timeZone: "local",
-                firstDay: 1,
-            });
-            calendar.setOption('locale', 'es');
-            calendar.render();
-        });
-    </script>
+    
 </x-plantilla.self>

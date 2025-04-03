@@ -8,11 +8,13 @@ use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Livewire\WithPagination;
 
+use function Laravel\Prompts\alert;
+
 class ShowFichas extends Component
 {
     use WithPagination;
 
-    public string $campo="fichars.created_at", $orden="asc";
+    public string $campo="fichars.created_at", $orden="desc";
     public string $texto="";
 
     public bool $abrirModalEditar = false;
