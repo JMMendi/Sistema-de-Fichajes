@@ -22,7 +22,7 @@ class FicharSalida extends Component
         $this->cform->formStoreSalida();
 
         $this->dispatch('salida')->to(Inicio::class);
-        $this->dispatch('mensaje', (Auth::user()->nombre . " ha fichado para salir a las: " . Carbon::now()));
+        $this->dispatch('mensaje', (Auth::user()->nombre . " ha fichado para salir a las: " . Carbon::now()->format('H:i:s')));
         $this->cerrarModal();
     }
 

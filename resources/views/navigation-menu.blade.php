@@ -20,7 +20,10 @@
                         {{ __('Informe Mensual') }}
                     </x-nav-link>
                     <x-nav-link href="{{ route('listado') }}" :active="request()->routeIs('listado')">
-                        {{ __('Listado') }}
+                        {{ __('Fichajes') }}
+                    </x-nav-link>
+                    <x-nav-link href="{{ route('show-users') }}" :active="request()->routeIs('show-users')">
+                        {{ __('Listado de Usuarios') }}
                     </x-nav-link>
                     @endif
                 </div>

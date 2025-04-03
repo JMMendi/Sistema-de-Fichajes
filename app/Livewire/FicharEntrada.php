@@ -21,7 +21,7 @@ class FicharEntrada extends Component
         $this->cform->formStoreEntrada();
         
         $this->dispatch('entrada')->to(Inicio::class);
-        $this->dispatch('mensaje', (Auth::user()->nombre." ha fichado para entrar a las: ".Carbon::now()));
+        $this->dispatch('mensaje', (Auth::user()->nombre." ha fichado para entrar a las: ".Carbon::now()->format('H:i:s')));
         $this->cerrarModal();
     }
 

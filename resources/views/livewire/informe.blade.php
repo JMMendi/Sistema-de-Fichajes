@@ -1,5 +1,31 @@
-<div>
-    <h1>Informe de {{$empleado->nombre}}</h1>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+</head>
+
+<body>
+    <style>
+        h1, h3 {
+            text-align: center;
+        }
+
+        table {
+            border: 1px solid black;
+            padding: 1%;
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        td, th {
+            border: 1px solid black;
+            text-align: center;
+            padding: 1%;
+        }
+
+    </style>
+    
+    <h1 class="text-center">Informe de {{$empleado->nombre}}</h1>
     <h3>Datos del Empleado desde {{$fechaInicio}} hasta {{$fechaFin}}</h3>
 
     <div class="relative overflow-x-auto">
@@ -40,4 +66,7 @@
             </tbody>
         </table>
     </div>
-</div>
+</body>
+
+
+</html>

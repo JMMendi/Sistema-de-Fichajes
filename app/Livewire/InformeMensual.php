@@ -23,8 +23,6 @@ class InformeMensual extends Component
 
     public $empleado = null;
 
-    public string $html = "";
-
     public function render()
     {
         $usuarios = User::select('id', 'nombre')->get();
@@ -49,7 +47,19 @@ class InformeMensual extends Component
 
     public function generarPdf() 
     {
-        $pdf = Pdf::loadHTML();
+        $data = [
+            'empleado' => $this->empleado,
+            'fichas' => Fichar::select('user_id', 'fechaInicio', 'fechaFin', 'tipo', DB::raw('hour(timediff(fechaInicio, fechaFin)) as horas'))
+                ->where('user_id', '=', $this->user_id)
+                ->where('fechaInicio', '>', $this->fechaInicio)
+                ->where('fechaFin', '<', $this->fechaFin)
+                ->orderBy('fechaInicio', 'desc')
+                ->get(),
+            'fechaInicio' => $this->fechaInicio,
+            'fechaFin' => $this->fechaFin,
+        ];
+
+        $pdf = Pdf::loadView('livewire.informe', $data);
         // return $pdf->download($this->empleado->nombre . " - " . \Carbon\Carbon::parse($this->fechaInicio)->format('d-m-Y') . "_" . \Carbon\Carbon::parse($this->fechaFin)->format('d-m-Y'). ".pdf");
         return response()->streamDownload(function () use ($pdf) {
             echo $pdf->stream();

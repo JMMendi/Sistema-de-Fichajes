@@ -29,7 +29,10 @@ class FormUpdateFichaje extends Form
         $this->ficha = $ficha;
         $this->user_id = $ficha->user_id;
         $this->fechaInicio = $ficha->fechaInicio->format('Y-m-d H:i:s');
-        $this->fechaFin = $ficha->fechaFin->format('Y-m-d H:i:s');
+        if ($ficha->fechaFin != null) {
+            $this->fechaFin = $ficha->fechaFin->format('Y-m-d H:i:s');
+        }
+        
         $usuario = User::findOrFail($this->user_id);
         $this->nombre = $usuario->nombre;
     }

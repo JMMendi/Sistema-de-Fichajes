@@ -1,5 +1,5 @@
 <x-plantilla.self>
-    <section class="flex justify-evenly">
+    <section class="flex justify-evenly ">
         <article class="float-left">
             <div class="mb-5">
                 <!-- Seleccionamos el trabajador -->
