@@ -17,7 +17,14 @@ class ShowUsers extends Component
 
     public function render()
     {
-        $usuarios = User::select('nombre', 'username', 'DNI', 'horasMes', 'id')->orderBy($this->campo, $this->orden)->get();
+        $usuarios = User::select('nombre', 'username', 'DNI', 'horasMes', 'id')
+        ->where(function($q) {
+            $q -> where('nombre', 'like', "%{$this->buscar}%")
+            ->orWhere('username', 'like', "%{$this->buscar}%")
+            ->orWhere('DNI', 'like', "%{$this->buscar}%");
+        })
+        ->orderBy($this->campo, $this->orden)
+        ->get();
         return view('livewire.show-users', compact('usuarios'));
     }
 
@@ -32,6 +39,14 @@ class ShowUsers extends Component
         $this->uform->setUser($empleado);
 
         $this->abrirModalEditar = true;
+    }
+
+    public function update() {
+        $this->uform->fUpdateUser();
+
+        $this->dispatch('mensaje', 'Empleado actualizado correctamente');
+
+        $this->cerrarModal();
     }
 
     public function cerrarModal() {

@@ -11,7 +11,6 @@ class FormUpdateUser extends Form
 {
     public ?User $empleado = null;
 
-    #[Rule(['required', 'string', 'min:3', 'max:100', 'unique:users,username'])]
     public string $username = "";
 
     #[Rule(['required', 'string', 'min:3', 'max:120'])]
@@ -60,5 +59,12 @@ class FormUpdateUser extends Form
     public function resetear() {
         $this->reset();
         $this->resetValidation();
+    }
+
+    
+    public function rules() : array {
+        return [
+            'username' => ['required', 'string', 'min:3', 'max:100', 'unique:users,username,'.$this->empleado->id],
+        ];
     }
 }
