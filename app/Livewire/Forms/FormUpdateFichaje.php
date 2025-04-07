@@ -6,7 +6,6 @@ use App\Models\Fichar;
 use App\Models\User;
 use Carbon\Carbon;
 use Livewire\Attributes\Rule;
-use Livewire\Attributes\Validate;
 use Livewire\Form;
 
 class FormUpdateFichaje extends Form
@@ -41,7 +40,6 @@ class FormUpdateFichaje extends Form
         $this->tipo = "Manual";
 
         $this->validate();
-
 
         $this->ficha->update([
             'fechaInicio' => Carbon::parse($this->fechaInicio),

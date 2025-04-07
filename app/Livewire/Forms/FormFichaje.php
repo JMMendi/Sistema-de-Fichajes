@@ -6,7 +6,6 @@ use App\Models\Fichar;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Rule;
-use Livewire\Attributes\Validate;
 use Livewire\Form;
 
 class FormFichaje extends Form

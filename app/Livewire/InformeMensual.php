@@ -60,9 +60,8 @@ class InformeMensual extends Component
         ];
 
         $pdf = Pdf::loadView('livewire.informe', $data);
-        // return $pdf->download($this->empleado->nombre . " - " . \Carbon\Carbon::parse($this->fechaInicio)->format('d-m-Y') . "_" . \Carbon\Carbon::parse($this->fechaFin)->format('d-m-Y'). ".pdf");
         return response()->streamDownload(function () use ($pdf) {
             echo $pdf->stream();
-            }, $this->empleado->nombre . " - " . \Carbon\Carbon::parse($this->fechaInicio)->format('d-m-Y') . "_" . \Carbon\Carbon::parse($this->fechaFin)->format('d-m-Y').".pdf");
+            }, $this->empleado->nombre . " - " . \Carbon\Carbon::parse($this->fechaInicio)->format('d-m-Y')."_".\Carbon\Carbon::parse($this->fechaFin)->format('d-m-Y').".pdf");
     }
 }

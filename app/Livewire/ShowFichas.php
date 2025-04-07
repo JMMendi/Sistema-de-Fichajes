@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-use function Laravel\Prompts\alert;
 
 class ShowFichas extends Component
 {
@@ -24,7 +23,8 @@ class ShowFichas extends Component
     {
         $fichas = DB::table('fichars')
         ->join('users', 'user_id', '=', 'users.id')
-        ->select('nombre', 'fechaInicio', 'fechaFin', 'tipo', 'fichars.id as fichaId', 'fichars.created_at', DB::raw('hour(timediff(fechaInicio, fechaFin)) as horas'))
+        ->select('nombre', 'fechaInicio', 'fechaFin', 'tipo', 'fichars.id as fichaId', 
+        'fichars.created_at', DB::raw('hour(timediff(fechaInicio, fechaFin)) as horas'))
         ->where(function($q) {
             $q->where('nombre', 'like', "%{$this->texto}%")
             ->orWhere('fechaInicio', 'like', "%{$this->texto}%")
