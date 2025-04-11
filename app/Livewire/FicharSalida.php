@@ -11,6 +11,8 @@ class FicharSalida extends Component
 {
     public bool $abrirFicharSalida = false;
     public FormFichaje $cform;
+    public $latitude = -1;
+    public $longitude = -1;
 
     public function render()
     {
@@ -21,7 +23,7 @@ class FicharSalida extends Component
     {
         $this->cform->formStoreSalida();
 
-        $this->dispatch('salida')->to(Inicio::class);
+        $this->dispatch('salida')->to(Calendario::class);
         $this->dispatch('mensaje', (Auth::user()->nombre . " ha fichado para salir a las: " . Carbon::now()->format('H:i:s')));
         $this->cerrarModal();
     }

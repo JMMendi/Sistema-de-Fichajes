@@ -56,7 +56,10 @@ class FormFichaje extends Form
 
     public function formStoreSalida()
     {
-        $fichaje = Fichar::where('user_id', '=', Auth::id())->where('fechaFin', null)->get();
+        $fichaje = Fichar::where('user_id', '=', Auth::id())
+        ->where('fechaFin', null)
+        ->get();
+        
         $this->ficha = Fichar::findOrFail($fichaje[0]->id);
         $this->ficha->update([
             'fechaFin' => Carbon::now(),

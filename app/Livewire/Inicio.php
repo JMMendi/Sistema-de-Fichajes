@@ -10,7 +10,7 @@ use Livewire\Component;
 class Inicio extends Component
 {
     
-    #[On(['salida', 'entrada'])]
+    #[On(['salida', 'entrada', 'reset'])]
     public function render()
     {
         $fichaje = Fichar::where('user_id', '=', Auth::id())
@@ -18,6 +18,5 @@ class Inicio extends Component
         ->get();
         return view('livewire.inicio', compact('fichaje'));
     }
-
-
+    
 }
