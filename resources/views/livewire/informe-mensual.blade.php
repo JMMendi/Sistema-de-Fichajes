@@ -26,8 +26,8 @@
         </article>
 
         @if($show)
-        <article id="informe" class="flex flex-col float-right">
-            <div>
+        <section id="informe" class="flex flex-col float-right">
+            <article>
                 <h1 class="text-center">Informe de {{$empleado->nombre}}</h1>
                 <h3 class="text-center">Datos del Empleado desde {{\Carbon\Carbon::parse($fechaInicio)->format('d/m/Y')}} hasta {{\Carbon\Carbon::parse($fechaFin)->format('d/m/Y')}}</h3>
 
@@ -69,12 +69,34 @@
                         </tbody>
                     </table>
                 </div>
-            </div>
+            </article>
+            <article>
+                <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200">
+                            <td class="px-6 py-4">Horas al Mes</td>
+                            <td class="px-6 py-4">Horas Totales</td>
+                            <td class="px-6 py-4">Diferencia</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($fichaHoras as $item)
+                        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200">
+                            <td class="px-6 py-4">{{$empleado->horasMes}}</td>
+                            <td class="px-6 py-4">{{$item->horasTotales}}</td>
+                            <td class="px-6 py-4">{{($empleado->horasMes) - ($item->horasTotales)}}</td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+
+                </table>
+            </article>
+
 
             <div class="flex justify-center mt-5">
                 <button type="button" wire:click="generarPdf" class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Descargar en PDF</button>
             </div>
-        </article>
+        </section>
 
         @endif
     </section>

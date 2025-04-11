@@ -22,7 +22,7 @@
                         Livewire.dispatch("comprobar", {
                             fechaInicio: info.dateStr
                         });
-                        
+                        Livewire.dispatch('reset');
                     },
                 });
                 calendar.setOption('locale', 'es');

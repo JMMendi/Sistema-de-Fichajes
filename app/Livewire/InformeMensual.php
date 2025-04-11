@@ -21,6 +21,8 @@ class InformeMensual extends Component
 
     public $fichas;
 
+    public $fichaHoras;
+
     public $empleado = null;
 
     public function render()
@@ -31,8 +33,15 @@ class InformeMensual extends Component
 
     public function recogerDatos()
     {
-        $fichas = Fichar::select('user_id', 'fechaInicio', 'fechaFin', 'tipo', DB::raw('hour(timediff(fechaInicio, fechaFin)) as horas'))
+        $fichas = Fichar::select('user_id', 'fechaInicio', 'fechaFin', 'tipo', 
+        DB::raw('hour(timediff(fechaInicio, fechaFin)) as horas'))
             ->where('user_id', '=', $this->user_id)
+            ->where('fechaInicio', '>', $this->fechaInicio)
+            ->where('fechaFin', '<', $this->fechaFin)
+            ->orderBy('fechaInicio', 'desc')
+            ->get();
+        $this->fichaHoras = Fichar::select(DB::raw('sum(hour(timediff(fechaInicio, fechaFin))) as horasTotales'))
+        ->where('user_id', '=', $this->user_id)
             ->where('fechaInicio', '>', $this->fechaInicio)
             ->where('fechaFin', '<', $this->fechaFin)
             ->orderBy('fechaInicio', 'desc')
@@ -49,7 +58,8 @@ class InformeMensual extends Component
     {
         $data = [
             'empleado' => $this->empleado,
-            'fichas' => Fichar::select('user_id', 'fechaInicio', 'fechaFin', 'tipo', DB::raw('hour(timediff(fechaInicio, fechaFin)) as horas'))
+            'fichas' => Fichar::select('user_id', 'fechaInicio', 'fechaFin', 'tipo', 
+            DB::raw('hour(timediff(fechaInicio, fechaFin)) as horas'))
                 ->where('user_id', '=', $this->user_id)
                 ->where('fechaInicio', '>', $this->fechaInicio)
                 ->where('fechaFin', '<', $this->fechaFin)
@@ -57,11 +67,19 @@ class InformeMensual extends Component
                 ->get(),
             'fechaInicio' => $this->fechaInicio,
             'fechaFin' => $this->fechaFin,
+            'fichaHoras' => Fichar::select(DB::raw('sum(hour(timediff(fechaInicio, fechaFin))) as horasTotales'))
+            ->where('user_id', '=', $this->user_id)
+                ->where('fechaInicio', '>', $this->fechaInicio)
+                ->where('fechaFin', '<', $this->fechaFin)
+                ->orderBy('fechaInicio', 'desc')
+                ->get(),
+            
         ];
 
         $pdf = Pdf::loadView('livewire.informe', $data);
         return response()->streamDownload(function () use ($pdf) {
             echo $pdf->stream();
-            }, $this->empleado->nombre . " - " . \Carbon\Carbon::parse($this->fechaInicio)->format('d-m-Y')."_".\Carbon\Carbon::parse($this->fechaFin)->format('d-m-Y').".pdf");
+            }, $this->empleado->nombre . " - " . \Carbon\Carbon::parse($this->fechaInicio)->format('d-m-Y').
+            "_".\Carbon\Carbon::parse($this->fechaFin)->format('d-m-Y').".pdf");
     }
 }

@@ -9,8 +9,6 @@ use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
-use function Laravel\Prompts\alert;
-
 class Calendario extends Component
 {
 
@@ -48,12 +46,9 @@ class Calendario extends Component
             if ($fichaje->fechaFin == null) {
                 $this->dispatch('mensaje', 'El empleado todavía no ha fichado la salida del horario laboral');
 
-
             } else {
                 $this->dispatch('mensaje', 'El empleado fichó este día.');
-
                 // $this->js("alert('Empleado fichó');"); 
-                $this->dispatch('reset')->self();
             }
         }
     }
