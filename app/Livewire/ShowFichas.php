@@ -23,7 +23,7 @@ class ShowFichas extends Component
     {
         $fichas = DB::table('fichars')
         ->join('users', 'user_id', '=', 'users.id')
-        ->select('nombre', 'fechaInicio', 'fechaFin', 'tipo', 'fichars.id as fichaId', 
+        ->select('nombre', 'fechaInicio', 'fechaFin', 'tipo', 'fichars.id as fichaId', 'latitud', 'longitud',
         'fichars.created_at', DB::raw('hour(timediff(fechaInicio, fechaFin)) as horas'))
         ->where(function($q) {
             $q->where('nombre', 'like', "%{$this->texto}%")

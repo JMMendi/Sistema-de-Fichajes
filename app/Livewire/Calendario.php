@@ -32,7 +32,8 @@ class Calendario extends Component
 
         
         if (!$fichaExiste) {
-            $this->dispatch('mensaje', \Carbon\Carbon::parse($fechaInicio)->format('d/M/y')." - El empleado no fichó ese día");
+            $this->js("alert('El empleado no fichó ese día')");
+            // $this->dispatch('mensaje', \Carbon\Carbon::parse($fechaInicio)->format('d/M/y')." - El empleado no fichó ese día");
 
         } else {
             $ficha = DB::table('fichars')

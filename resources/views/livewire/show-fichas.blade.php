@@ -21,7 +21,10 @@
                         Fecha - (Hora) Fin <i class="fas fa-sort ml-1"></i>
                     </th>
                     <th scope="col" class="px-6 py-3 cursor-pointer" wire:click="ordenar('horas')">
-                        Horas del día <i class="fas fa-sort ml-1"></i>
+                        Horas Diarias <i class="fas fa-sort ml-1"></i>
+                    </th>
+                    <th scope="col" class="px-6 py-3" >
+                        Coordenadas
                     </th>
                     <th scope="col" class="px-6 py-3 cursor-pointer" wire:click="ordenar('tipo')">
                         Tipo <i class="fas fa-sort ml-1"></i>
@@ -45,6 +48,9 @@
                     </td>
                     <td class="px-6 py-4">
                         {{$item->horas}}
+                    </td>
+                    <td class="px-6 py-4">
+                        {{($item->latitud)}} / {{($item->longitud)}}
                     </td>
                     <td class="px-6 py-4">
                         {{$item->tipo}}

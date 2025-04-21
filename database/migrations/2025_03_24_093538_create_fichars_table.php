@@ -16,6 +16,8 @@ return new class extends Migration
             $table->dateTime('fechaInicio');
             $table->dateTime('fechaFin')->nullable();
             $table->boolean('modificado')->default(false);
+            $table->float('latitud');
+            $table->float('longitud');
             $table->enum('tipo', ['Manual', 'Diario']);
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->timestamps();

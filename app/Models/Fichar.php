@@ -17,6 +17,8 @@ class Fichar extends Model
         'user_id',
         'tipo',
         'modificado',
+        'latitud',
+        'longitud',
     ];
 
     public function user() : BelongsTo {

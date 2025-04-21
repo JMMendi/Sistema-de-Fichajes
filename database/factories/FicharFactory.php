@@ -21,7 +21,9 @@ class FicharFactory extends Factory
             'fechaInicio' => fake()->dateTimeInInterval('-1 week', '+1 day'),
             'fechaFin' => fake()->dateTimeInInterval('-1 week', '+1 day'),
             'user_id' => User::all()->random()->id,
-            'tipo' => fake()->randomElement(['Manual', 'Diario'])
+            'latitud' => fake()->randomFloat(),
+            'longitud' => fake()->randomFloat(),
+            'tipo' => fake()->randomElement(['Manual', 'Diario']),
         ];
     }
 }

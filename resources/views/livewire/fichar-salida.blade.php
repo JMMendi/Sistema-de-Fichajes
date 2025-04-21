@@ -23,19 +23,22 @@
         });
 
         function success(position) {
-            $wire.latitude = position.coords.latitude
-            $wire.longitude = position.coords.longitude
+            $wire.latitude = position.coords.latitude;
+            $wire.longitude = position.coords.longitude;
 
-            console.log($wire.latitude + " - " + $wire.longitude);
+            $wire.confirmarSalida();
+            Livewire.dispatchTo('inicio', 'salida');
 
-            console.log(calcularDistanciaEntreDosCoordenadas($wire.latitude, $wire.longitude, 36.8497134, -2.4486812));
+            // console.log($wire.latitude + " - " + $wire.longitude);
 
-            if (calcularDistanciaEntreDosCoordenadas($wire.latitude, $wire.longitude, 36.8497134, -2.4486812) <= 100) {
-                $wire.confirmarSalida();
-                Livewire.dispatchTo('inicio', 'salida');
-            } else {
-                alert("Error, no está lo suficientemente cerca del lugar de trabajo para fichar la salida.");
-            }
+            // console.log(calcularDistanciaEntreDosCoordenadas($wire.latitude, $wire.longitude, 36.8497134, -2.4486812));
+
+            // if (calcularDistanciaEntreDosCoordenadas($wire.latitude, $wire.longitude, 36.8497134, -2.4486812) <= 100) {
+            //     $wire.confirmarSalida();
+            //     Livewire.dispatchTo('inicio', 'salida');
+            // } else {
+            //     alert("Error, no está lo suficientemente cerca del lugar de trabajo para fichar la salida.");
+            // }
         }
 
         function error() {
@@ -48,25 +51,6 @@
             timeout: 27000,
         }
 
-        const gradosARadianes = (grados) => {
-            return grados * Math.PI / 180;
-        };
-
-        // Otra fórmula de Haversine
-        const calcularDistanciaEntreDosCoordenadas = (lat1, lon1, lat2, lon2) => {
-            // Convertir todas las coordenadas a radianes
-            lat1 = gradosARadianes(lat1);
-            lon1 = gradosARadianes(lon1);
-            lat2 = gradosARadianes(lat2);
-            lon2 = gradosARadianes(lon2);
-            // Aplicar fórmula
-            const RADIO_TIERRA_EN_KILOMETROS = 6371;
-            let diferenciaEntreLongitudes = (lon2 - lon1);
-            let diferenciaEntreLatitudes = (lat2 - lat1);
-            let a = Math.pow(Math.sin(diferenciaEntreLatitudes / 2.0), 2) + Math.cos(lat1) * Math.cos(lat2) * Math.pow(Math.sin(diferenciaEntreLongitudes / 2.0), 2);
-            let c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-            return RADIO_TIERRA_EN_KILOMETROS * c;
-        };
     </script>
     @endscript
 </div>

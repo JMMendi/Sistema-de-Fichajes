@@ -10,7 +10,6 @@ use Livewire\Component;
 
 class InformeMensual extends Component
 {
-
     public int $user_id = -1;
 
     public $fechaInicio;

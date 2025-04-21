@@ -23,6 +23,12 @@ class FormFichaje extends Form
     #[Rule(['required', "in:Manual,Diario"])]
     public string $tipo = "";
 
+    #[Rule(['required', 'float'])]
+    public float $latitud = -1;
+
+    #[Rule(['required', 'float'])]
+    public float $longitud = -1;
+
     public function formStoreFichaje()
     {
         $this->tipo = "Manual";
@@ -34,6 +40,8 @@ class FormFichaje extends Form
             'fechaFin' =>Carbon::parse($this->fechaFin),
             'tipo' => $this->tipo,
             'user_id' => $this->user_id,
+            'latidud' => $this->latitud,
+            'longitud' => $this->longitud,
         ]);
         
     }
@@ -44,13 +52,19 @@ class FormFichaje extends Form
         $this->resetValidation();
     }
 
-    public function formStoreEntrada()
+    public function formStoreEntrada($latitud, $longitud)
     {
+        $this->latitud = $latitud;
+        $this->longitud = $longitud;
+
         $fecha = Carbon::now();
+
         Fichar::create([
             'fechaInicio' => $fecha,
             'user_id' => Auth::id(),
             'tipo' => 'Diario',
+            'latitud' => $this->latitud,
+            'longitud' => $this->longitud,
         ]);
     }
 
@@ -64,8 +78,6 @@ class FormFichaje extends Form
         $this->ficha->update([
             'fechaFin' => Carbon::now(),
         ]);
-
-
     }
 
     public function rules(): array

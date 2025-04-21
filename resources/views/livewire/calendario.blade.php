@@ -22,7 +22,6 @@
                         Livewire.dispatch("comprobar", {
                             fechaInicio: info.dateStr
                         });
-                        Livewire.dispatch('reset');
                     },
                 });
                 calendar.setOption('locale', 'es');
@@ -33,6 +32,7 @@
 
         // info.dateStr
     </script>
+
 
     <div class="m-3 p-3" id='calendar'></div>
 </div>
