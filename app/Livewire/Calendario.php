@@ -30,10 +30,8 @@ class Calendario extends Component
         ->whereDate('fechaInicio', '=', $this->fechaInicio)
         ->exists();
 
-        
         if (!$fichaExiste) {
-            $this->js("alert('El empleado no fichó ese día')");
-            // $this->dispatch('mensaje', \Carbon\Carbon::parse($fechaInicio)->format('d/M/y')." - El empleado no fichó ese día");
+            $this->js('console.log("No se fichó")');
 
         } else {
             $ficha = DB::table('fichars')
@@ -49,7 +47,6 @@ class Calendario extends Component
 
             } else {
                 $this->dispatch('mensaje', 'El empleado fichó este día.');
-                // $this->js("alert('Empleado fichó');"); 
             }
         }
     }

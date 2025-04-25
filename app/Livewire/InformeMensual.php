@@ -5,6 +5,7 @@ namespace App\Livewire;
 use App\Models\Fichar;
 use App\Models\User;
 use Barryvdh\DomPDF\Facade\Pdf;
+use DateTime;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
@@ -12,9 +13,9 @@ class InformeMensual extends Component
 {
     public int $user_id = -1;
 
-    public $fechaInicio;
+    public ?DateTime $fechaInicio = null;
 
-    public $fechaFin;
+    public ?DateTime $fechaFin = null;
 
     public bool $show = false;
 
@@ -32,33 +33,47 @@ class InformeMensual extends Component
 
     public function recogerDatos()
     {
-        $fichas = Fichar::select('user_id', 'fechaInicio', 'fechaFin', 'tipo', 
-        DB::raw('hour(timediff(fechaInicio, fechaFin)) as horas'))
-            ->where('user_id', '=', $this->user_id)
-            ->where('fechaInicio', '>', $this->fechaInicio)
-            ->where('fechaFin', '<', $this->fechaFin)
-            ->orderBy('fechaInicio', 'desc')
-            ->get();
-        $this->fichaHoras = Fichar::select(DB::raw('sum(hour(timediff(fechaInicio, fechaFin))) as horasTotales'))
-        ->where('user_id', '=', $this->user_id)
-            ->where('fechaInicio', '>', $this->fechaInicio)
-            ->where('fechaFin', '<', $this->fechaFin)
-            ->orderBy('fechaInicio', 'desc')
-            ->get();
+        if ($this->user_id == 1 || $this->fechaInicio == null || $this->fechaFin == null) {
+            $this->js("alert('Error, rellene los campos corretamente')");
+        } else {
+            $fichas = Fichar::select(
+                'user_id',
+                'fechaInicio',
+                'fechaFin',
+                'tipo',
+                DB::raw('hour(timediff(fechaInicio, fechaFin)) as horas')
+            )
+                ->where('user_id', '=', $this->user_id)
+                ->where('fechaInicio', '>', $this->fechaInicio)
+                ->where('fechaFin', '<', $this->fechaFin)
+                ->orderBy('fechaInicio', 'desc')
+                ->get();
+            $this->fichaHoras = Fichar::select(DB::raw('sum(hour(timediff(fechaInicio, fechaFin))) as horasTotales'))
+                ->where('user_id', '=', $this->user_id)
+                ->where('fechaInicio', '>', $this->fechaInicio)
+                ->where('fechaFin', '<', $this->fechaFin)
+                ->orderBy('fechaInicio', 'desc')
+                ->get();
 
-        $this->fichas = $fichas;
+            $this->fichas = $fichas;
 
-        $this->empleado = User::findOrFail($this->user_id);
+            $this->empleado = User::findOrFail($this->user_id);
 
-        $this->show = true;
+            $this->show = true;
+        }
     }
 
-    public function generarPdf() 
+    public function generarPdf()
     {
         $data = [
             'empleado' => $this->empleado,
-            'fichas' => Fichar::select('user_id', 'fechaInicio', 'fechaFin', 'tipo', 
-            DB::raw('hour(timediff(fechaInicio, fechaFin)) as horas'))
+            'fichas' => Fichar::select(
+                'user_id',
+                'fechaInicio',
+                'fechaFin',
+                'tipo',
+                DB::raw('hour(timediff(fechaInicio, fechaFin)) as horas')
+            )
                 ->where('user_id', '=', $this->user_id)
                 ->where('fechaInicio', '>', $this->fechaInicio)
                 ->where('fechaFin', '<', $this->fechaFin)
@@ -67,18 +82,18 @@ class InformeMensual extends Component
             'fechaInicio' => $this->fechaInicio,
             'fechaFin' => $this->fechaFin,
             'fichaHoras' => Fichar::select(DB::raw('sum(hour(timediff(fechaInicio, fechaFin))) as horasTotales'))
-            ->where('user_id', '=', $this->user_id)
+                ->where('user_id', '=', $this->user_id)
                 ->where('fechaInicio', '>', $this->fechaInicio)
                 ->where('fechaFin', '<', $this->fechaFin)
                 ->orderBy('fechaInicio', 'desc')
                 ->get(),
-            
+
         ];
 
         $pdf = Pdf::loadView('livewire.informe', $data);
         return response()->streamDownload(function () use ($pdf) {
             echo $pdf->stream();
-            }, $this->empleado->nombre . " - " . \Carbon\Carbon::parse($this->fechaInicio)->format('d-m-Y').
-            "_".\Carbon\Carbon::parse($this->fechaFin)->format('d-m-Y').".pdf");
+        }, $this->empleado->nombre . " - " . \Carbon\Carbon::parse($this->fechaInicio)->format('d-m-Y') .
+            "_" . \Carbon\Carbon::parse($this->fechaFin)->format('d-m-Y') . ".pdf");
     }
 }
