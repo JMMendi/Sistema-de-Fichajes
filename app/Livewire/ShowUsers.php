@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use App\Livewire\Forms\FormUpdateUser;
 use App\Models\User;
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 class ShowUsers extends Component
@@ -53,4 +54,21 @@ class ShowUsers extends Component
         $this->uform->resetear();
         $this->abrirModalEditar = false;
     }
+
+    public function confirmarBorrarEmpleado(int $id) {
+        $empleado = User::findOrFail($id);
+
+        $this->authorize('delete', $empleado);
+        $this->dispatch('onBorrarEmpleado', $id);
+    }
+
+    #[On('onConfirmar')]
+    public function borrarEmpleado(int $id) {
+        $empleado = User::findOrFail($id);
+
+        $empleado->delete();
+        $this->dispatch('mensaje', 'Empleado borrado correctamente de la base de datos');
+    }
+
+
 }

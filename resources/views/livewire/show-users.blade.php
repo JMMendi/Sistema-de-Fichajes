@@ -47,6 +47,9 @@
                         <button wire:click="edit({{$item->id}})">
                             <i class="fas fa-edit text-xl text-green-500 hover:text-green-700"></i>
                         </button>
+                        <button wire:click="confirmarBorrarEmpleado({{$item->id}})">
+                            <i class="fas fa-trash text-xl text-red-500 hover:text-red-700"></i>
+                        </button>
                     </td>
                 </tr>
                 @endforeach
