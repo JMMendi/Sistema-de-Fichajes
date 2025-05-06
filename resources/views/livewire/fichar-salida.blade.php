@@ -1,6 +1,6 @@
 <div>
     <x-button wire:click="$set('abrirFicharSalida', true)">
-        Salida
+        Fichar Salida
     </x-button>
     <x-dialog-modal wire:model="abrirFicharSalida">
         <x-slot name="title">

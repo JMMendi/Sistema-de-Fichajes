@@ -1,6 +1,6 @@
 <x-plantilla.self>
-    <section class="flex justify-evenly ">
-        <article class="float-left">
+    <section class="flex flex-col justify-evenly sm:flex-row">
+        <article class="sm:float-left mb-5">
             <div class="mb-5">
                 <!-- Seleccionamos el trabajador -->
                 <label for="user_id" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Usuario</label>
@@ -26,7 +26,7 @@
         </article>
 
         @if($show)
-        <section id="informe" class="flex flex-col float-right">
+        <section id="informe" class="flex flex-col sm:float-right top-5">
             <article>
                 <h1 class="text-center">Informe de {{$empleado->nombre}}</h1>
                 <h3 class="text-center">Datos del Empleado desde {{\Carbon\Carbon::parse($fechaInicio)->format('d/m/Y')}} hasta {{\Carbon\Carbon::parse($fechaFin)->format('d/m/Y')}}</h3>

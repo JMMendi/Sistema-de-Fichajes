@@ -79,8 +79,8 @@ class InformeMensual extends Component
                 ->where('fechaFin', '<', $this->fechaFin)
                 ->orderBy('fechaInicio', 'desc')
                 ->get(),
-            'fechaInicio' => $this->fechaInicio,
-            'fechaFin' => $this->fechaFin,
+            'fechaInicio' => $this->fechaInicio->format('d-m-Y'),
+            'fechaFin' => $this->fechaFin->format('d-m-Y'),
             'fichaHoras' => Fichar::select(DB::raw('sum(hour(timediff(fechaInicio, fechaFin))) as horasTotales'))
                 ->where('user_id', '=', $this->user_id)
                 ->where('fechaInicio', '>', $this->fechaInicio)

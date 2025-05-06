@@ -16,6 +16,7 @@ class ShowUsers extends Component
     public bool $abrirModalEditar = false;
     public FormUpdateUser $uform;
 
+    #[On("onBorrado")]
     public function render()
     {
         $usuarios = User::select('nombre', 'username', 'DNI', 'horasMes', 'id')
@@ -68,6 +69,7 @@ class ShowUsers extends Component
 
         $empleado->delete();
         $this->dispatch('mensaje', 'Empleado borrado correctamente de la base de datos');
+        $this->dispatch('onBorrado');
     }
 
 
