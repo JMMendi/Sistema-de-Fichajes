@@ -31,6 +31,7 @@ class UserFactory extends Factory
             'nombre' => fake()->name(),
             'password' => static::$password ??= Hash::make('password'),
             'horasMes' => random_int(50, 160),
+            'horasDia' => fake()->randomFloat(1, 1, 15),
             'admin' => fake()->boolean(),
             'DNI' => "12345678A",
             'two_factor_secret' => null,

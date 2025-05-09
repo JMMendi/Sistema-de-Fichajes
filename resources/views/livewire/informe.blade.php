@@ -34,6 +34,9 @@
             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
                     <th scope="col" class="px-6 py-3">
+                        Día de la Semana
+                    </th>
+                    <th scope="col" class="px-6 py-3">
                         Inicio
                     </th>
                     <th scope="col" class="px-6 py-3">
@@ -48,8 +51,15 @@
                 </tr>
             </thead>
             <tbody>
+                @foreach($fechas as $fecha)
+
                 @foreach($fichas as $item)
+                @if($fecha == \Carbon\Carbon::parse($item->fechaInicio)->format('d-m-Y'))
+
                 <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200">
+                    <td class="px-6 py-4">
+                        {{$item->fechaInicio->format('l')}}
+                    </td>
                     <td class="px-6 py-4">
                         {{$item->fechaInicio}}
                     </td>
@@ -63,6 +73,40 @@
                         {{$item->tipo}}
                     </td>
                 </tr>
+
+                @break
+
+                @else
+
+                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200">
+                    <td @class([ 'px-6 py-4' , 'bg-red-200'=> \Carbon\Carbon::create($fecha)->isWeekend(),
+                        ])>
+                        {{\Carbon\Carbon::parse($fecha)->format('l')}}
+                    </td>
+                    <td @class([ 'px-6 py-4' , 'bg-red-200'=> \Carbon\Carbon::create($fecha)->isWeekend(),
+                        ])>
+                        {{\Carbon\Carbon::parse($fecha)->format('d/m/Y')}}
+                    </td>
+                    <td @class([ 'px-6 py-4' , 'bg-red-200'=> \Carbon\Carbon::create($fecha)->isWeekend(),
+                        ])>
+                        ------------
+                    </td>
+                    <td @class([ 'px-6 py-4' , 'bg-red-200'=> \Carbon\Carbon::create($fecha)->isWeekend(),
+                        ])>
+                        ------------
+                    </td>
+                    <td @class([ 'px-6 py-4' , 'bg-red-200'=> \Carbon\Carbon::create($fecha)->isWeekend(),
+                        ])>
+                        Vacio
+                    </td>
+                </tr>
+
+                @break
+
+                @endif
+
+                @endforeach
+
                 @endforeach
             </tbody>
         </table>

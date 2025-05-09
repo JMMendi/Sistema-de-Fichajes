@@ -25,6 +25,7 @@
 
         </article>
 
+
         @if($show)
         <section id="informe" class="flex flex-col sm:float-right top-5">
             <article>
@@ -32,9 +33,12 @@
                 <h3 class="text-center">Datos del Empleado desde {{\Carbon\Carbon::parse($fechaInicio)->format('d/m/Y')}} hasta {{\Carbon\Carbon::parse($fechaFin)->format('d/m/Y')}}</h3>
 
                 <div class="relative overflow-x-auto">
-                    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 border-2 border-black p-2">
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                             <tr>
+                                <th scope="col" class="px-6 py-3">
+                                    Día de la Semana
+                                </th>
                                 <th scope="col" class="px-6 py-3">
                                     Inicio
                                 </th>
@@ -50,28 +54,76 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($fichas as $item)
-                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200">
-                                <td class="px-6 py-4">
-                                    {{\Carbon\Carbon::parse($item->fechaInicio)->format('d/m/Y (H:i:s)')}}
-                                </td>
-                                <td class="px-6 py-4">
-                                    {{\Carbon\Carbon::parse($item->fechaFin)->format('d/m/Y (H:i:s)')}}
-                                </td>
-                                <td class="px-6 py-4">
-                                    {{$item->horas}}
-                                </td>
-                                <td class="px-6 py-4">
-                                    {{$item->tipo}}
-                                </td>
-                            </tr>
+                            @foreach($fechas as $fecha)
+
+                                @foreach($fichas as $item)
+                                    @if($fecha == \Carbon\Carbon::parse($item->fechaInicio)->format('d-m-Y'))
+                                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200">
+                                        <td class="px-6 py-4">
+                                            {{\Carbon\Carbon::parse($item->fechaInicio)->format('l')}}
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            {{\Carbon\Carbon::parse($item->fechaInicio)->format('d/m/Y (H:i:s)')}}
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            {{\Carbon\Carbon::parse($item->fechaFin)->format('d/m/Y (H:i:s)')}}
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            {{$item->horas}}
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            {{$item->tipo}}
+                                        </td>
+                                    </tr>
+
+                                    @break
+
+                                    @else
+                                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200">
+                                        <td @class([
+                                            'px-6 py-4',
+                                            'bg-red-200' => \Carbon\Carbon::create($fecha)->isWeekend(),
+                                            ])>
+                                            {{\Carbon\Carbon::parse($fecha)->format('l')}}
+                                        </td>
+                                        <td @class([
+                                            'px-6 py-4',
+                                            'bg-red-200' => \Carbon\Carbon::create($fecha)->isWeekend(),
+                                            ])>
+                                            {{\Carbon\Carbon::parse($fecha)->format('d/m/Y')}}
+                                        </td>
+                                        <td @class([
+                                            'px-6 py-4',
+                                            'bg-red-200' => \Carbon\Carbon::create($fecha)->isWeekend(),
+                                            ])>
+                                            ------------
+                                        </td>
+                                        <td @class([
+                                            'px-6 py-4',
+                                            'bg-red-200' => \Carbon\Carbon::create($fecha)->isWeekend(),
+                                            ])>
+                                            ------------
+                                        </td>
+                                        <td @class([
+                                            'px-6 py-4',
+                                            'bg-red-200' => \Carbon\Carbon::create($fecha)->isWeekend(),
+                                            ])>
+                                            Vacio
+                                        </td>
+                                    </tr>
+
+                                    @break
+
+                                    @endif
+
+                                @endforeach
                             @endforeach
                         </tbody>
                     </table>
                 </div>
             </article>
             <article>
-                <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 border-2 border-black">
                     <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                         <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200">
                             <td class="px-6 py-4">Horas al Mes</td>

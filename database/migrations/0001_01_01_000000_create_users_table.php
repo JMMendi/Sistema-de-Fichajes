@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('nombre');
             $table->string('password');
             $table->string('DNI');
+            $table->decimal('horasDia', total:3, places:1);
             $table->integer('horasMes');
             $table->boolean('admin')->default(false);
             $table->rememberToken();

@@ -19,7 +19,7 @@ class ShowUsers extends Component
     #[On("onBorrado")]
     public function render()
     {
-        $usuarios = User::select('nombre', 'username', 'DNI', 'horasMes', 'id')
+        $usuarios = User::select('nombre', 'username', 'DNI', 'horasMes', 'horasDia', 'id')
         ->where(function($q) {
             $q -> where('nombre', 'like', "%{$this->buscar}%")
             ->orWhere('username', 'like', "%{$this->buscar}%")

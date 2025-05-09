@@ -21,6 +21,9 @@ class FormRegistroUsuarios extends Form
     #[Rule(['required', 'integer'])]
     public int $horasMes = 0;
 
+    #[Rule(['required', 'decimal:0,1'])]
+    public int $horasDia = 0;
+
     #[Rule(['required', 'string', 'regex:/^[0-9]{8}[A-Z]$/'])]
     public string $DNI = "";
 
@@ -32,6 +35,7 @@ class FormRegistroUsuarios extends Form
             'nombre' => $this->nombre,
             'password' => Hash::make($this->password),
             'horasMes' => $this->horasMes,
+            'horasDia' => $this->horasDia,
             'DNI' => $this->DNI,
         ]);
     }

@@ -1,5 +1,7 @@
 <div>
+    
     <script defer>
+        
         function mostrarCalendario() {
             document.addEventListener('DOMContentLoaded', function() {
                 var calendarEl = document.getElementById('calendar');
@@ -18,17 +20,28 @@
                         daysOfWeek: [1, 2, 3, 4, 5],
 
                     },
-                    dateClick: function(info) {
-                        Livewire.dispatch("comprobar", {
-                            fechaInicio: info.dateStr
-                        });
-                        mostrarCalendario();
-                    },
+                    
                 });
                 calendar.setOption('locale', 'es');
                 calendar.render();
             });
         }
+
+        // function addEventos() {
+        // var eventos = [];
+        // $js('onEventos', () => {
+        //     eventos.forEach(element => {
+        //         calendar.addEvent({
+        //             title: element.title,
+        //             start: element.start
+        //         })
+        //     });
+        // })
+        // console.log(eventos);
+        // }
+
+        // addEventos();
+
         mostrarCalendario();
 
         // info.dateStr

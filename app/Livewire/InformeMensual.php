@@ -5,6 +5,11 @@ namespace App\Livewire;
 use App\Models\Fichar;
 use App\Models\User;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Carbon\Carbon;
+use Carbon\CarbonInterval;
+use Carbon\CarbonPeriod;
+use DateInterval;
+use DatePeriod;
 use DateTime;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
@@ -13,15 +18,21 @@ class InformeMensual extends Component
 {
     public int $user_id = -1;
 
-    public ?DateTime $fechaInicio = null;
+    public $fechaInicio = null;
 
-    public ?DateTime $fechaFin = null;
+    public $fechaFin = null;
+
+    public ?DateTime $fechaPrincipio = null;
+
+    public ?DateTime $fechaFinal = null;
 
     public bool $show = false;
 
     public $fichas;
 
     public $fichaHoras;
+
+    public $fechas = [];
 
     public $empleado = null;
 
@@ -59,12 +70,33 @@ class InformeMensual extends Component
 
             $this->empleado = User::findOrFail($this->user_id);
 
+            $this->rangoFechas();
+
             $this->show = true;
         }
     }
 
+    public function rangoFechas() : array {
+        $fechaPrincipio = new Carbon($this->fechaInicio);
+        $fechaFinal = new Carbon($this->fechaFin);
+
+        $intervalo = CarbonInterval::createFromDateString('1 day');
+        $periodo = CarbonPeriod::create($fechaPrincipio, $intervalo, $fechaFinal);
+
+        foreach($periodo as $item) {
+            $this->fechas[] = $item->format('d-m-Y');
+        }
+        
+        // dd($fechas);
+
+        return $this->fechas;
+    }
+
     public function generarPdf()
     {
+        $this->fechaPrincipio = Carbon::parse($this->fechaInicio);
+        $this->fechaFinal = Carbon::parse($this->fechaFin);
+
         $data = [
             'empleado' => $this->empleado,
             'fichas' => Fichar::select(
@@ -79,8 +111,9 @@ class InformeMensual extends Component
                 ->where('fechaFin', '<', $this->fechaFin)
                 ->orderBy('fechaInicio', 'desc')
                 ->get(),
-            'fechaInicio' => $this->fechaInicio->format('d-m-Y'),
-            'fechaFin' => $this->fechaFin->format('d-m-Y'),
+            'fechaInicio' => $this->fechaPrincipio->format('d-m-Y'),
+            'fechaFin' => $this->fechaFinal->format('d-m-Y'),
+            'fechas' => $this->fechas,
             'fichaHoras' => Fichar::select(DB::raw('sum(hour(timediff(fechaInicio, fechaFin))) as horasTotales'))
                 ->where('user_id', '=', $this->user_id)
                 ->where('fechaInicio', '>', $this->fechaInicio)

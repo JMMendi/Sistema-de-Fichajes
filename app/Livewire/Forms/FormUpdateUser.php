@@ -21,6 +21,9 @@ class FormUpdateUser extends Form
     #[Rule(['required', 'integer'])]
     public int $horasMes = 0;
 
+    #[Rule(['required', 'decimal:0,1'])]
+    public int $horasDia = 0;
+
     #[Rule(['required', 'string', 'regex:/^[0-9]{8}[A-Z]$/'])]
     public string $DNI = "";
 
@@ -30,6 +33,7 @@ class FormUpdateUser extends Form
         $this->username = $empleado->username;
         $this->nombre = $empleado->nombre;
         $this->horasMes = $empleado->horasMes;
+        $this->horasDia = $empleado->horasDia;
         $this->DNI = $empleado->DNI;
 
     }
@@ -43,6 +47,7 @@ class FormUpdateUser extends Form
                 'nombre' => $this->nombre,
                 'password' => $this->password,
                 'horasMes' => $this->horasMes,
+                'horasDia' => $this->horasDia,
                 'DNI' => $this->DNI,
             ]);
         } else {
@@ -50,6 +55,7 @@ class FormUpdateUser extends Form
                 'username' => $this->username,
                 'nombre' => $this->nombre,
                 'horasMes' => $this->horasMes,
+                'horasDia' => $this->horasDia,
                 'DNI' => $this->DNI,
             ]);
         }

@@ -23,6 +23,9 @@
                     <th scope="col" class="px-6 py-3 cursor-pointer" wire:click="ordenar('horasMes')">
                         Horas al Mes <i class="fas fa-sort ml-2"></i>
                     </th>
+                    <th scope="col" class="px-6 py-3 cursor-pointer" wire:click="ordenar('horasDia')">
+                        Horas al día <i class="fas fa-sort ml-2"></i>
+                    </th>
                     <th scope="col" class="px-6 py-3">
                         Acciones
                     </th>
@@ -42,6 +45,9 @@
                     </td>
                     <td class="px-6 py-4">
                         {{$item->horasMes}}
+                    </td>
+                    <td class="px-6 py-4">
+                        {{$item->horasDia}}
                     </td>
                     <td class="px-6 py-4">
                         <button wire:click="edit({{$item->id}})">
@@ -64,39 +70,45 @@
         </x-slot>
         <x-slot name="content">
             <div class="flex justify-center">
-                <article class="w-1/2 flex flex-col shadow-xl border-2 border-black p-5 rounded-xl">
-                    <div class="mb-5">
+                <section class="w-1/2 flex flex-col shadow-xl border-2 border-black p-5 rounded-xl">
+                    <article class="mb-5">
                         <label for="username" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nombre de Usuario</label>
                         <input type="text" id="username" wire:model="uform.username" name="username" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
                         <x-input-error for="uform.username" />
 
-                    </div>
-                    <div class="mb-5">
+                    </article>
+                    <article class="mb-5">
                         <label for="nombre" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nombre Completo</label>
                         <input type="text" id="nombre" name="nombre" wire:model="uform.nombre" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
                         <x-input-error for="uform.nombre" />
 
-                    </div>
-                    <div class="mb-5">
+                    </article>
+                    <article class="mb-5">
                         <label for="DNI" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">DNI</label>
                         <input type="text" id="DNI" name="DNI" wire:model="uform.DNI" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="12345678A" required />
                         <x-input-error for="uform.DNI" />
 
-                    </div>
-                    <div class="mb-5">
+                    </article>
+                    <article class="mb-5">
                         <label for="horasMes" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Horas al Mes</label>
                         <input type="number" id="horasMes" wire:model="uform.horasMes" name="horasMes" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
                         <x-input-error for="uform.horasMes" />
 
-                    </div>
-                    <div class="mb-5">
+                    </article>
+                    <article class="mb-5">
+                        <label for="horasDia" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Horas al Día</label>
+                        <input type="text" id="horasDia" wire:model="uform.horasDia" name="horasDia" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
+                        <x-input-error for="uform.horasDia" />
+
+                    </article>
+                    <article class="mb-5">
                         <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Contraseña</label>
                         <input type="password" id="password" name="password" wire:model="uform.password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
                         <x-input-error for="uform.password" />
 
-                    </div>
+                    </article>
 
-                </article>
+                </section>
             </div>
         </x-slot>
         <x-slot name="footer">
