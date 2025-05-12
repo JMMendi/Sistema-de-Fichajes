@@ -74,9 +74,9 @@
                     </td>
                 </tr>
 
-                @break
+                
 
-                @else
+                @elseif($fecha != \Carbon\Carbon::parse($item->fechaInicio)->format('d-m-Y') && $loop->first)
 
                 <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200">
                     <td @class([ 'px-6 py-4' , 'bg-red-200'=> \Carbon\Carbon::create($fecha)->isWeekend(),
@@ -101,7 +101,7 @@
                     </td>
                 </tr>
 
-                @break
+                @continue
 
                 @endif
 

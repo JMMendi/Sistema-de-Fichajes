@@ -68,6 +68,8 @@ class InformeMensual extends Component
 
             $this->fichas = $fichas;
 
+            // dd($fichas);
+
             $this->empleado = User::findOrFail($this->user_id);
 
             $this->rangoFechas();

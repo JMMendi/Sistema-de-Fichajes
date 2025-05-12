@@ -35,7 +35,8 @@ class FormFichaje extends Form
 
         $this->validate();
 
-        Fichar::create([
+        if ($this->fechaFin != null) {
+            Fichar::create([
             'fechaInicio' => Carbon::parse($this->fechaInicio),
             'fechaFin' =>Carbon::parse($this->fechaFin),
             'tipo' => $this->tipo,
@@ -43,6 +44,17 @@ class FormFichaje extends Form
             'latidud' => 36.8497134,
             'longitud' => -2.4486812,
         ]);
+        } else {
+            Fichar::create([
+            'fechaInicio' => Carbon::parse($this->fechaInicio),
+            'tipo' => $this->tipo,
+            'user_id' => $this->user_id,
+            'latidud' => 36.8497134,
+            'longitud' => -2.4486812,
+        ]);
+        
+        }
+
         
     }
 

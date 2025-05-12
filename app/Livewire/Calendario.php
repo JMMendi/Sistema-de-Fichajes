@@ -3,10 +3,8 @@
 namespace App\Livewire;
 
 use App\Models\Fichar;
-use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
@@ -22,17 +20,17 @@ class Calendario extends Component
     {
         $usuario = Fichar::select('fechaInicio', 'fechaFin')->where('user_id', '=', Auth::id())->get();
         $usuario->toArray();
-
+        
         $this->empleado = $usuario;
 
         $eventos = $this->crearEventos();
 
-        // dd($empleado);
         return view('livewire.calendario', compact('usuario', 'eventos'));
     }
     
     public function crearEventos() {
-        $eventos = [];
+        $eventos = array();
+        
         foreach($this->empleado as $item) {
             $titulo = "";
 
@@ -42,12 +40,15 @@ class Calendario extends Component
                 $titulo = "Entrada";
             }
 
-            $eventos = array (
-                "title" => $titulo,
-                "start" => $item->fechaInicio
-            );
+            $eventos[] = [
+                'title' => $titulo,
+                'start' => \Carbon\Carbon::parse($item->fechaInicio)->format('Y-m-d')
+            ];
+        
+            
         }
-        $this->js('onEventos', $eventos);
+        // dd($eventos);
+        return $eventos;
     }
     // #[On('comprobar')]
     // public function comprobarFichaje($fechaInicio) {

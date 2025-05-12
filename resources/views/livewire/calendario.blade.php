@@ -1,6 +1,7 @@
 <div>
-    
     <script defer>
+
+        let prueba = <?php echo json_encode($eventos); ?>;
         
         function mostrarCalendario() {
             document.addEventListener('DOMContentLoaded', function() {
@@ -22,25 +23,15 @@
                     },
                     
                 });
+                prueba.forEach(element => {
+                    calendar.addEvent(element);
+                });
                 calendar.setOption('locale', 'es');
                 calendar.render();
             });
         }
 
-        // function addEventos() {
-        // var eventos = [];
-        // $js('onEventos', () => {
-        //     eventos.forEach(element => {
-        //         calendar.addEvent({
-        //             title: element.title,
-        //             start: element.start
-        //         })
-        //     });
-        // })
-        // console.log(eventos);
-        // }
-
-        // addEventos();
+        
 
         mostrarCalendario();
 
