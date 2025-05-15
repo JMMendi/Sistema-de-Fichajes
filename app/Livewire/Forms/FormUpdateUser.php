@@ -22,7 +22,7 @@ class FormUpdateUser extends Form
     public int $horasMes = 0;
 
     #[Rule(['required', 'decimal:0,1'])]
-    public int $horasDia = 0;
+    public float $horasDia = 0;
 
     #[Rule(['required', 'string', 'regex:/^[0-9]{8}[A-Z]$/'])]
     public string $DNI = "";
@@ -30,7 +30,7 @@ class FormUpdateUser extends Form
     public function setUser(User $empleado) {
         $this->empleado = $empleado;
 
-        $this->username = $empleado->username;
+        $this->username = strtolower($empleado->username);
         $this->nombre = $empleado->nombre;
         $this->horasMes = $empleado->horasMes;
         $this->horasDia = $empleado->horasDia;

@@ -10,9 +10,11 @@
             @livewire('fichar-salida')
             </div>
             @endif
-            <div class="mb-5 ms-5 mt-5">
-            @livewire('festividades')
-            </div>
+            @if(Auth::user()->admin)
+                <div class="mb-5 ms-5 mt-5">
+                    @livewire('festividades')
+                </div>
+            @endif
         </div>
     <div>
         @livewire('calendario')

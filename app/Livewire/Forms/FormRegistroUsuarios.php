@@ -22,7 +22,7 @@ class FormRegistroUsuarios extends Form
     public int $horasMes = 0;
 
     #[Rule(['required', 'decimal:0,1'])]
-    public int $horasDia = 0;
+    public float $horasDia = 0;
 
     #[Rule(['required', 'string', 'regex:/^[0-9]{8}[A-Z]$/'])]
     public string $DNI = "";
@@ -31,7 +31,7 @@ class FormRegistroUsuarios extends Form
         $this->validate();
 
         User::create([
-            'username' => $this->username,
+            'username' => strtolower($this->username),
             'nombre' => $this->nombre,
             'password' => Hash::make($this->password),
             'horasMes' => $this->horasMes,

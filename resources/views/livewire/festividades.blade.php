@@ -20,7 +20,9 @@
                             <th scope="col" class="px-6 py-3 bg-gray-50 dark:bg-gray-800">
                                 Mes
                             </th>
-
+                            <th scope="col" class="px-6 py-3">
+                                Acciones
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -35,7 +37,11 @@
                             <td class="px-6 py-4 bg-gray-50 dark:bg-gray-800">
                                 {{ucfirst(\Carbon\Carbon::parse("2025-".$item->mes."-1")->locale('es')->monthName)}}
                             </td>
-
+                            <th scope="col" class="px-6 py-3">
+                                <button wire:click="borrarFestivo({{$item->id}})">
+                                    <i class="fas fa-trash text-gray-500 hover:text-gray-800"></i>
+                                </button>
+                            </th>
                         </tr>
                         @endforeach
                     </tbody>

@@ -26,7 +26,7 @@ class Calendario extends Component
         
         $this->empleado = $usuario;
 
-        $festivos = Festivo::select('nombre', 'dia', 'mes')->get();
+        $festivos = Festivo::select('nombre', 'dia', 'mes', 'tipo')->get();
         $festivos->toArray();
 
         $this->festivos = $festivos;
@@ -41,16 +41,20 @@ class Calendario extends Component
         
         foreach($this->empleado as $item) {
             $titulo = "";
+            $color = "";
 
             if ($item->fechaFin) {
                 $titulo = "Entrada y Salida";
+                $color = "blue";
             } else {
                 $titulo = "Entrada";
+                $color = "green";
             }
 
             $eventos[] = [
                 'title' => $titulo,
-                'start' => \Carbon\Carbon::parse($item->fechaInicio)->format('Y-m-d')
+                'start' => \Carbon\Carbon::parse($item->fechaInicio)->format('Y-m-d'),
+                'backgroundColor' => $color
             ];
         }
 
@@ -59,14 +63,25 @@ class Calendario extends Component
 
         foreach($this->festivos as $item) {
             $titulo = "";
-            
+            $dia = $item->dia + 1;
 
             $eventos[] = [
                 'title' => $item->nombre,
-                'start' => \Carbon\Carbon::create($anio, $item->mes, $item->dia),
+                'start' => \Carbon\Carbon::create($anio, $item->mes, $dia),
                 'backgroundColor' => $color,
                 'allDay' => true,
             ];
+            if ($item->tipo === "Fijo") {
+                $anioNuevo = $anio + 1;
+                $diaNuevo = $item->dia + 1;
+
+                $eventos[] = [
+                'title' => $item->nombre,
+                'start' => \Carbon\Carbon::create($anioNuevo, $item->mes, $diaNuevo),
+                'backgroundColor' => $color,
+                'allDay' => true,
+            ];
+            }
         }
         // dd($eventos);
         return $eventos;

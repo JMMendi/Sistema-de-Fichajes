@@ -16,7 +16,7 @@ class Festividades extends Component
 
     public function render()
     {
-        $dias = Festivo::select('nombre', 'dia', 'mes')->get();
+        $dias = Festivo::select('id', 'nombre', 'dia', 'mes')->get();
         return view('livewire.festividades', compact('dias'));
     }
 
@@ -37,6 +37,12 @@ class Festividades extends Component
         $this->modalAdd = false;
     }
 
+    public function borrarFestivo(int $id) {
+        $dia = Festivo::findOrFail($id);
+        
+        $dia->delete();
 
+        $this->dispatch('mensaje', 'Día festivo eliminado correctamente');
+    }
 
 }
