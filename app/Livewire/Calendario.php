@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Models\Festivo;
 use App\Models\Fichar;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -15,6 +16,8 @@ class Calendario extends Component
 
     public $empleado = null;
 
+    public $festivos = null;
+
     #[On(['reset'])]
     public function render()
     {
@@ -23,9 +26,14 @@ class Calendario extends Component
         
         $this->empleado = $usuario;
 
+        $festivos = Festivo::select('nombre', 'dia', 'mes')->get();
+        $festivos->toArray();
+
+        $this->festivos = $festivos;
+
         $eventos = $this->crearEventos();
 
-        return view('livewire.calendario', compact('usuario', 'eventos'));
+        return view('livewire.calendario', compact('usuario', 'eventos', 'festivos'));
     }
     
     public function crearEventos() {
@@ -44,8 +52,21 @@ class Calendario extends Component
                 'title' => $titulo,
                 'start' => \Carbon\Carbon::parse($item->fechaInicio)->format('Y-m-d')
             ];
-        
+        }
+
+        $color = "red";
+        $anio = Carbon::now()->year;
+
+        foreach($this->festivos as $item) {
+            $titulo = "";
             
+
+            $eventos[] = [
+                'title' => $item->nombre,
+                'start' => \Carbon\Carbon::create($anio, $item->mes, $item->dia),
+                'backgroundColor' => $color,
+                'allDay' => true,
+            ];
         }
         // dd($eventos);
         return $eventos;

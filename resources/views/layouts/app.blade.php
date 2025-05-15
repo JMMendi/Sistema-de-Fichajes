@@ -60,7 +60,7 @@
                 icon: "success",
                 title: txt,
                 showConfirmButton: false,
-                timer: 3000
+                timer: 1500
             });
         })
         Livewire.on('onBorrarEmpleado', id => {

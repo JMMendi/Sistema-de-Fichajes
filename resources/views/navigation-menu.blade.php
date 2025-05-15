@@ -17,7 +17,7 @@
                     </x-nav-link>
                     @if(Auth::user()->admin)
                     <x-nav-link href="{{ route('informe') }}" :active="request()->routeIs('informe')">
-                        {{ __('Informe Mensual') }}
+                        {{ __('Informe') }}
                     </x-nav-link>
                     <x-nav-link href="{{ route('listado') }}" :active="request()->routeIs('listado')">
                         {{ __('Fichajes') }}
