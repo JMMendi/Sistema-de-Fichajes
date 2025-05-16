@@ -1,7 +1,7 @@
 <div>
     <script defer>
 
-        let prueba = <?php echo json_encode($eventos); ?>;
+        let eventos = <?php echo json_encode($eventos); ?>;
         
         function mostrarCalendario() {
             document.addEventListener('DOMContentLoaded', function() {
@@ -23,7 +23,7 @@
                     },
                     
                 });
-                prueba.forEach(element => {
+                eventos.forEach(element => {
                     calendar.addEvent(element);
                 });
                 calendar.setOption('locale', 'es');
