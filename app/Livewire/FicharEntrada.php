@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Livewire\Forms\FormFichaje;
+use App\Models\Fichar;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
@@ -16,7 +17,10 @@ class FicharEntrada extends Component
 
     public function render()
     {
-        return view('livewire.fichar-entrada');
+        $prueba = new Fichar();
+        $motivos = $prueba->arrayMotivos();
+
+        return view('livewire.fichar-entrada', compact('motivos'));
     }
 
     public function confirmarEntrada() {

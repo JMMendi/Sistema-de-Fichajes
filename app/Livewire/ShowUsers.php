@@ -16,7 +16,7 @@ class ShowUsers extends Component
     public bool $abrirModalEditar = false;
     public FormUpdateUser $uform;
 
-    #[On("onBorrado")]
+    #[On(["onBorrado", "onCreado", "onUpdate"])]
     public function render()
     {
         $usuarios = User::select('nombre', 'username', 'DNI', 'horasMes', 'horasDia', 'id')
@@ -47,6 +47,7 @@ class ShowUsers extends Component
         $this->uform->fUpdateUser();
 
         $this->dispatch('mensaje', 'Empleado actualizado correctamente');
+        $this->dispatch('onUpdate');
 
         $this->cerrarModal();
     }

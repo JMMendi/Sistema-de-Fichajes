@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Livewire\Forms\FormFichaje;
+use App\Models\Fichar;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
@@ -16,12 +17,15 @@ class FicharSalida extends Component
 
     public function render()
     {
-        return view('livewire.fichar-salida');
+        $prueba = new Fichar();
+        $motivos = $prueba->arrayMotivos();
+
+        return view('livewire.fichar-salida', compact('motivos'));
     }
 
     public function confirmarSalida()
     {
-        $this->cform->formStoreSalida();
+        $this->cform->formStoreSalida($this->latitude, $this->longitude);
 
         $this->dispatch('salida')->to(Calendario::class);
         $this->dispatch('mensaje', (Auth::user()->nombre . " ha fichado para salir a las: " . Carbon::now()->format('H:i:s')));

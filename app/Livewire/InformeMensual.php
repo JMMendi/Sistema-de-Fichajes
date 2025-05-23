@@ -44,9 +44,10 @@ class InformeMensual extends Component
 
     public function recogerDatos()
     {
-        if ($this->user_id == 1 || $this->fechaInicio == null || $this->fechaFin == null) {
-            $this->js("alert('Error, rellene los campos corretamente')");
+        if ($this->user_id == -1 || $this->fechaInicio == null || $this->fechaFin == null) {
+            $this->js("alert('Error, rellene los campos correctamente')");
         } else {
+            $this->resetear();
             $fichas = Fichar::select(
                 'user_id',
                 'fechaInicio',
@@ -78,12 +79,31 @@ class InformeMensual extends Component
         }
     }
 
+    public function mesAnterior() {
+        $mes = Carbon::now()->month -1;
+        $anio = Carbon::now()->year;
+        $this->fechaInicio = Carbon::create($anio, $mes, 1);
+        $this->fechaFin = Carbon::create($anio, $mes, $this->fechaInicio->daysInMonth());
+        
+        $this->recogerDatos();
+    }
+
+    public function resetear() {
+        $this->fichas = null;
+        $this->fichaHoras = null;
+        $this->empleado = null;
+        $this->show = false;
+    }
+
     public function rangoFechas() : array {
         $fechaPrincipio = new Carbon($this->fechaInicio);
         $fechaFinal = new Carbon($this->fechaFin);
 
         $intervalo = CarbonInterval::createFromDateString('1 day');
         $periodo = CarbonPeriod::create($fechaPrincipio, $intervalo, $fechaFinal);
+
+        $reset = [];
+        $this->fechas = $reset;
 
         foreach($periodo as $item) {
             $this->fechas[] = $item->format('d-m-Y');

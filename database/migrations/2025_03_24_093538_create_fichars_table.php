@@ -16,8 +16,12 @@ return new class extends Migration
             $table->dateTime('fechaInicio');
             $table->dateTime('fechaFin')->nullable();
             $table->boolean('modificado')->default(false);
-            $table->float('latitud');
-            $table->float('longitud');
+            $table->float('latitudEntrada');
+            $table->float('longitudEntrada');
+            $table->float('latitudSalida');
+            $table->float('longitudSalida');
+            $table->enum('motivoEntrada', ['Rutina', 'Atraso', 'Médico', 'Almuerzo', 'Descanso', 'Otro']);
+            $table->enum('motivoSalida', ['Rutina', 'Atraso', 'Médico', 'Almuerzo', 'Descanso', 'Otro']);
             $table->enum('tipo', ['Manual', 'Diario']);
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->timestamps();

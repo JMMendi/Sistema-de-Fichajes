@@ -20,6 +20,7 @@ class RegistroUsuarios extends Component
         $this->cform->fCrearUsuario();
 
         $this->dispatch('mensaje', 'Usuario creado correctamente');
+        $this->dispatch('onCreado')->to(ShowUsers::class);
 
         $this->cerrarModalCrear();
     }

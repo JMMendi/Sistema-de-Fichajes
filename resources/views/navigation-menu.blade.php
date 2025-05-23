@@ -19,6 +19,9 @@
                     <x-nav-link href="{{ route('informe') }}" :active="request()->routeIs('informe')">
                         {{ __('Informe') }}
                     </x-nav-link>
+                    <x-nav-link href="{{ route('acumulado') }}" :active="request()->routeIs('acumulado')">
+                        {{ __('Informe Acumulado') }}
+                    </x-nav-link>
                     <x-nav-link href="{{ route('listado') }}" :active="request()->routeIs('listado')">
                         {{ __('Fichajes') }}
                     </x-nav-link>
@@ -117,6 +120,9 @@
             @if(Auth::user()->admin)
             <x-responsive-nav-link href="{{ route('informe') }}" :active="request()->routeIs('informe')">
                 {{ __('Informe') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link href="{{ route('acumulado') }}" :active="request()->routeIs('acumulado')">
+                        {{ __('Informe Acumulado') }}
             </x-responsive-nav-link>
             <x-responsive-nav-link href="{{ route('listado') }}" :active="request()->routeIs('listado')">
                 {{ __('Fichajes') }}

@@ -17,12 +17,20 @@ class Fichar extends Model
         'user_id',
         'tipo',
         'modificado',
-        'latitud',
-        'longitud',
+        'latitudEntrada',
+        'longitudEntrada',
+        'latitudSalida',
+        'longitudSalida',
+        'motivoEntrada',
+        'motivoSalida',
     ];
 
     public function user() : BelongsTo {
         return $this->belongsTo(User::class);
+    }
+
+    public function arrayMotivos() : array {
+        return ['Rutina', 'Atraso', 'Médico', 'Almuerzo', 'Descanso', 'Otro'];
     }
 
     protected function casts(): array

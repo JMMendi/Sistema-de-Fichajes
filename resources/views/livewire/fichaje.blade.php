@@ -8,30 +8,65 @@
             Ventana Fichaje
         </x-slot>
         <x-slot name="content">
-            <div class="mb-5">
+            <section class="mb-5">
                 <label for="user_id" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Usuario</label>
                 <select name="user_id" wire:model="cform.user_id" id="user_id">
                     <option value="">Seleccione un Usuario</option>
                     @foreach($usuarios as $item)
-                        <option value="{{$item->id}}">{{$item->nombre}}</option>
+                    <option value="{{$item->id}}">{{$item->nombre}}</option>
                     @endforeach
                 </select>
-                <x-input-error for="cform.user_id"/>
-            </div>
+                <x-input-error for="cform.user_id" />
+            </section>
             <!-- Ponemos una hora de Inicio y una hora de Salida -->
-            <div class="mb-5">
+            <section class="mb-5">
                 <label for="fechaInicio" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Fecha de Inicio</label>
                 <input type="datetime-local" name="fechaInicio" wire:model="cform.fechaInicio" id="fechaInicio" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
-                <x-input-error for="cform.fechaInicio"/>
+                <x-input-error for="cform.fechaInicio" />
 
-            </div>
-            <div class="mb-5">
+            </section>
+            <section class="mb-5">
                 <label for="fechaFin" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Fecha de Fin</label>
                 <input type="datetime-local" name="fechaFin" wire:model="cform.fechaFin" id="fechaFin" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
-                <x-input-error for="cform.fechaFin"/>
-            </div>
+                <x-input-error for="cform.fechaFin" />
+            </section>
+            <section class="mb-5 flex justify-around">
+                <article class="border-2 border-indigo-500 rounded-md p-2">
+                    <label for="motivos" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Motivos de la Entrada</label>
+                    @foreach($motivos as $item)
+                    <div class="flex items-center mb-4">
+                        <input id="motivoEntrada" type="radio" name="motivoEntrada" id="motivoEntrada" value="{{$item}}" wire:model="cform.motivoEntrada" class="w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600" >
+                        <label for="{{$item}}" class="block ms-2  text-sm font-medium text-gray-900 dark:text-gray-300">
+                            {{$item}}
+                        </label>
+                    </div>
+                    @endforeach
+                    <x-input-error for="cform.motivoEntrada" />
+                </article>
+                <article class="border-2 border-red-500 rounded-md p-2">
+                    <label for="motivos" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Motivos de la Salida</label>
+                    @foreach($motivos as $item)
+                    <div class="flex items-center mb-4">
+                        <input id="motivoSalida" type="radio" name="motivoSalida" id="motivoSalida" value="{{$item}}" wire:model="cform.motivoSalida" class="w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600" >
+                        <label for="{{$item}}" class="block ms-2  text-sm font-medium text-gray-900 dark:text-gray-300">
+                            {{$item}}
+                        </label>
+                    </div>
+                    @endforeach
+                    <div class="flex items-center mb-4">
+                        <input id="motivoSalida" type="radio" name="motivoSalida" id="motivoSalida" value="" wire:model="cform.motivoSalida" class="w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600" >
+                        <label for="no" class="block ms-2  text-sm font-medium text-gray-900 dark:text-gray-300">
+                            Todavía no
+                        </label>
+                    </div>
+                    <x-input-error for="cform.motivoSalida" />
 
-            
+                </article>
+
+
+            </section>
+
+
         </x-slot>
         <x-slot name="footer">
             <!-- Al darle a enviar se registra el fichaje -->

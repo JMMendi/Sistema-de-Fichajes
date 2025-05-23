@@ -130,6 +130,14 @@
                 </tbody>
             </table>
         </article>
+        <section style="margin-top: 2%; display:flex; justify-content:space-between; width:100%;">
+            <article style="border:1px solid black; float:left; padding-right:250px; padding-bottom:10%; flex-grow:1;">
+                La Empresa
+            </article>
+            <article style="border:1px solid black; float:right; border-left-style:none; padding-left:300px; padding-bottom:10%; flex-grow:1;">
+                {{$empleado->DNI}} - {{$empleado->nombre}}
+            </article>
+        </section>
     </div>
 </body>
 

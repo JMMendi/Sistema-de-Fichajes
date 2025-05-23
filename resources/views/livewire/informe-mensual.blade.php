@@ -20,6 +20,7 @@
                 <label for="fechaFin" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Fecha de Fin</label>
                 <input type="date" id="fechaFin" wire:model="fechaFin" name="fechaFin" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
             </div>
+            <button wire:click="mesAnterior" class="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Mes Anterior</button>
             <!-- Al darle al botón, abriremos una ventana con el informe -->
             <button type="submit" wire:click="recogerDatos" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Generar Informe</button>
 
@@ -54,6 +55,7 @@
                             </tr>
                         </thead>
                         <tbody>
+                        <?php $conteo = 0; ?>
                         @foreach($fechas as $fecha)
 
                             @foreach($fichas as $item)
@@ -69,7 +71,14 @@
                                         {{\Carbon\Carbon::parse($item->fechaFin)->format('d/m/Y (H:i:s)')}}
                                     </td>
                                     <td class="px-6 py-4">
+                                        @if(\Carbon\Carbon::parse($item->fechaInicio)->format('i') > \Carbon\Carbon::parse($item->fechaFin)->format('i'))
+                                        {{($item->horas)+1}}
+                                        @php
+                                            $conteo += 1;
+                                        @endphp
+                                        @else
                                         {{$item->horas}}
+                                        @endif
                                     </td>
                                     <td class="px-6 py-4">
                                         {{$item->tipo}}
@@ -119,13 +128,11 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($fichaHoras as $item)
                         <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200">
                             <td class="px-6 py-4">{{$empleado->horasMes}}</td>
-                            <td class="px-6 py-4">{{$item->horasTotales}}</td>
-                            <td class="px-6 py-4">{{($empleado->horasMes) - ($item->horasTotales)}}</td>
+                            <td class="px-6 py-4">{{$fichaHoras[0]->horasTotales + $conteo}}</td>
+                            <td class="px-6 py-4">{{($empleado->horasMes) - ($fichaHoras[0]->horasTotales)}}</td>
                         </tr>
-                        @endforeach
                     </tbody>
 
                 </table>

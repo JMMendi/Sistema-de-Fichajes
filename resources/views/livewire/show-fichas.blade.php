@@ -23,8 +23,17 @@
                     <th scope="col" class="px-6 py-3 cursor-pointer" wire:click="ordenar('horas')">
                         Horas Diarias <i class="fas fa-sort ml-1"></i>
                     </th>
-                    <th scope="col" class="px-6 py-3" >
-                        Coordenadas
+                    <th scope="col" class="px-6 py-3">
+                        Coordenadas (Entrada)
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Coordenadas (Salida)
+                    </th>
+                    <th scope="col" class="px-6 py-3 cursor-pointer" wire:click="ordenar('motivoEntrada')">
+                        Motivo Entrada <i class="fas fa-sort ml-1"></i>
+                    </th>
+                    <th scope="col" class="px-6 py-3 cursor-pointer" wire:click="ordenar('motivoSalida')">
+                        Motivo Salida <i class="fas fa-sort ml-1"></i>
                     </th>
                     <th scope="col" class="px-6 py-3 cursor-pointer" wire:click="ordenar('tipo')">
                         Tipo <i class="fas fa-sort ml-1"></i>
@@ -40,19 +49,41 @@
                     <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                         {{$item->nombre}}
                     </th>
-                    <td class="px-6 py-4">
+                    <td class="px-5 py-4">
                         {{\Carbon\Carbon::parse($item->fechaInicio)->format('d/m/Y - (H:i:s)')}}
                     </td>
-                    <td class="px-6 py-4">
+                    <td class="px-5 py-4">
+                        @if($item->fechaFin)
                         {{\Carbon\Carbon::parse($item->fechaFin)->format('d/m/Y - (H:i:s)')}}
+                        @else
+
+                        @endif
                     </td>
-                    <td class="px-6 py-4">
+                    <td class="px-5 py-4">
+                        @if(\Carbon\Carbon::parse($item->fechaInicio)->format('i') > \Carbon\Carbon::parse($item->fechaFin)->format('i'))
+                        {{($item->horas)+1}}
+
+                        @else
                         {{$item->horas}}
+                        @endif
                     </td>
-                    <td class="px-6 py-4">
-                        {{($item->latitud)}} / {{($item->longitud)}}
+                    <td class="px-5 py-4">
+                        {{($item->latitudEntrada)}} / {{($item->longitudEntrada)}}
                     </td>
-                    <td class="px-6 py-4">
+                    <td class="px-5 py-4">
+                        {{($item->latitudEntrada)}} / {{($item->longitudEntrada)}}
+                    </td>
+                    <td class="px-5 py-4">
+                        {{$item->motivoEntrada}}
+                    </td>
+                    <td class="px-5 py-4">
+                        @if($item->motivoSalida)
+                        {{$item->motivoSalida}}
+                        @else
+
+                        @endif
+                    </td>
+                    <td class="px-5 py-4">
                         {{$item->tipo}}
                     </td>
                     <td class="px-6 py-4">
@@ -96,6 +127,45 @@
                 <input type="datetime-local" name="fechaFin" wire:model="uform.fechaFin" id="fechaFin" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
                 <x-input-error for="uform.fechaFin" />
             </section>
+
+            <section class="mb-5 flex justify-around">
+                <article class="border-2 border-indigo-500 rounded-md p-2">
+                    <label for="motivos" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Motivos de la Entrada</label>
+                    @foreach($motivos as $item)
+                    <div class="flex items-center mb-4">
+                        <input id="{{$item}}" type="radio" name="{{$item}}" value="{{$item}}" wire:model="uform.motivoEntrada" class="w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600">
+                        <label for="{{$item}}" class="block ms-2  text-sm font-medium text-gray-900 dark:text-gray-300">
+                            {{$item}}
+                        </label>
+                    </div>
+                    @endforeach
+                    <x-input-error for="uform.motivoEntrada" />
+
+                </article>
+                <article class="border-2 border-red-500 rounded-md p-2">
+                    <label for="motivos" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Motivos de la Salida</label>
+                    @foreach($motivos as $item)
+                    <div class="flex items-center mb-4">
+                        <input id="{{$item}}Salida" type="radio" name="{{$item}}Salida" value="{{$item}}" wire:model="uform.motivoSalida" class="w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600">
+                        <label for="{{$item}}Salida" class="block ms-2  text-sm font-medium text-gray-900 dark:text-gray-300">
+                            {{$item}}
+                        </label>
+                    </div>
+                    @endforeach
+                    <div class="flex items-center mb-4">
+                        <input id="motivoSalida" type="radio" name="motivoSalida" id="motivoSalida" value="" wire:model="uform.motivoSalida" class="w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600">
+                        <label for="no" class="block ms-2  text-sm font-medium text-gray-900 dark:text-gray-300">
+                            Todavía no
+                        </label>
+                    </div>
+                    <x-input-error for="uform.motivoSalida" />
+
+                </article>
+
+
+            </section>
+
+
 
         </x-slot>
 

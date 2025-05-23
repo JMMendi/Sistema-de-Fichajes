@@ -7,7 +7,18 @@
             Fichaje de Entrada
         </x-slot>
         <x-slot name="content">
-            ¿Quiere hacer el fichaje de entrada?
+            ¿Quiere hacer el fichaje de entrada? Indique el motivo:
+            <article class="border-2 border-indigo-500 rounded-md p-2">
+                    <label for="motivos" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Motivos de la Entrada</label>
+                    @foreach($motivos as $item)
+                    <div class="flex items-center mb-4">
+                        <input id="motivoEntrada" type="radio" name="motivoEntrada" id="motivoEntrada" value="{{$item}}" wire:model="cform.motivoEntrada" class="w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600" checked>
+                        <label for="{{$item}}" class="block ms-2  text-sm font-medium text-gray-900 dark:text-gray-300">
+                            {{$item}}
+                        </label>
+                    </div>
+                    @endforeach
+            </article>
         </x-slot>
         <x-slot name="footer">
             <x-button class="mr-5" wire:click="$js.mandarCoordenadas">Sí</x-button>
