@@ -1,4 +1,5 @@
 <x-plantilla.self>
+    <h1 class="text-center text-xl mb-5">Informe</h1>
     <section class="flex flex-col justify-evenly sm:flex-row">
         <article class="sm:float-left mb-5">
             <div class="mb-5">
@@ -130,8 +131,11 @@
                     <tbody>
                         <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200">
                             <td class="px-6 py-4">{{$empleado->horasMes}}</td>
-                            <td class="px-6 py-4">{{$fichaHoras[0]->horasTotales + $conteo}}</td>
-                            <td class="px-6 py-4">{{($empleado->horasMes) - ($fichaHoras[0]->horasTotales)}}</td>
+                            @foreach($fichaHoras as $item)
+                            <td class="px-6 py-4">{{$item->horasTotales + $conteo}}</td>
+                            <td class="px-6 py-4">{{($empleado->horasMes) - ($item->horasTotales)}}</td>
+                            @endforeach
+
                         </tr>
                     </tbody>
 

@@ -1,4 +1,6 @@
 <x-plantilla.self>
+    <h1 class="text-center text-xl mb-5">Informe Acumulado</h1>
+
     <section class="flex flex-col justify-evenly sm:flex-row">
         <article class="sm:float-left mb-5">
             <div class="mb-5">

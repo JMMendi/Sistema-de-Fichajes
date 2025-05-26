@@ -141,6 +141,7 @@ class InformeMensual extends Component
                 ->where('fechaInicio', '>', $this->fechaInicio)
                 ->where('fechaFin', '<', $this->fechaFin)
                 ->orderBy('fechaInicio', 'desc')
+                ->limit(1)
                 ->get(),
         ];
 
