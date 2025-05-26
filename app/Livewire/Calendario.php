@@ -57,14 +57,12 @@ class Calendario extends Component
                 'backgroundColor' => $color
             ];
         }
-
         $color = "red";
         $anio = Carbon::now()->year;
 
         foreach($this->festivos as $item) {
             $titulo = "";
             $dia = $item->dia + 1;
-
             $eventos[] = [
                 'title' => $item->nombre,
                 'start' => \Carbon\Carbon::create($anio, $item->mes, $dia),
@@ -74,7 +72,6 @@ class Calendario extends Component
             if ($item->tipo === "Fijo") {
                 $anioNuevo = $anio + 1;
                 $diaNuevo = $item->dia + 1;
-
                 $eventos[] = [
                 'title' => $item->nombre,
                 'start' => \Carbon\Carbon::create($anioNuevo, $item->mes, $diaNuevo),
@@ -83,7 +80,6 @@ class Calendario extends Component
             ];
             }
         }
-        // dd($eventos);
         return $eventos;
     }
     // #[On('comprobar')]

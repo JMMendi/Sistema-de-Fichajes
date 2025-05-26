@@ -30,11 +30,7 @@
                 calendar.render();
             });
         }
-
-        
-
         mostrarCalendario();
-
         // info.dateStr
     </script>
 

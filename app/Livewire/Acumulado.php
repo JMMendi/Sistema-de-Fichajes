@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use App\Models\Fichar;
 use App\Models\User;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
@@ -35,16 +36,22 @@ class Acumulado extends Component
             $this->js("alert('Error, rellene los campos corretamente')");
         } else {
             $this->resetear();
-            $fichas = Fichar::select(
-                DB::raw('hour(timediff(fechaInicio, fechaFin)) as horas'),
+
+            $sub = Fichar::select('user_id', DB::raw('DATE_FORMAT(fechaInicio, "%Y-%m") as fecha'), 
+            DB::raw("HOUR(TIMEDIFF(fechaInicio, fechaFin)) as horas"))
+            ->where('user_id', '=', $this->user_id);
+
+            $fichas = DB::table($sub)
+                ->select(
+                'user_id', 'fecha', DB::raw("SUM(horas) as acumulado"), 'horasMes', DB::raw("(horasMes - SUM(horas)) as diferencia") 
             )
-                ->where('user_id', '=', $this->user_id)
-                ->where('fechaInicio', '>', $this->fechaInicio)
-                ->where('fechaFin', '<', $this->fechaFin)
-                ->groupBy('horas')
-                ->orderBy('fechaInicio', 'desc')
+                ->join('users', 'user_id', '=', 'id')
+                ->groupBy('user_id', "fecha")
                 ->get();
         }
+
+        // dd($fichas[1]->fecha);
+
         $this->fichas = $fichas;
 
         $this->empleado = User::findOrFail($this->user_id);
@@ -57,5 +64,29 @@ class Acumulado extends Component
         $this->fichas = null;
         $this->empleado = null;
         $this->show = false;
+    }
+
+        public function generarPdf()
+    {
+        $sub = Fichar::select('user_id', DB::raw('DATE_FORMAT(fechaInicio, "%Y-%m") as fecha'), 
+        DB::raw("HOUR(TIMEDIFF(fechaInicio, fechaFin)) as horas"))
+        ->where('user_id', '=', $this->user_id);        
+
+        $data = [
+            'empleado' => $this->empleado,
+            'fichas' =>  DB::table($sub)
+                ->select(
+                'user_id', 'fecha', DB::raw("SUM(horas) as acumulado"), 'horasMes', DB::raw("(horasMes - SUM(horas)) as diferencia") 
+            )
+                ->join('users', 'user_id', '=', 'id')
+                ->groupBy('user_id', "fecha")
+                ->get(),
+            ];
+
+        $pdf = Pdf::loadView('livewire.informe-acumulado', $data);
+        return response()->streamDownload(function () use ($pdf) {
+            echo $pdf->stream();
+        }, "Informe acumulado de ". $this->empleado->nombre . " - " . \Carbon\Carbon::parse($this->fechaInicio)->format('d-m-Y') .
+            "-" . \Carbon\Carbon::parse($this->fechaFin)->format('d-m-Y') . ".pdf");
     }
 }

@@ -51,16 +51,16 @@
                             @foreach($fichas as $item)
                                 <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200">
                                     <td class="px-6 py-4">
-                                        {{\Carbon\Carbon::parse($item->fechaInicio)->format('M Y')}}
+                                        {{\Carbon\Carbon::parse($item->fecha)->format('M Y')}}
                                     </td>
                                     <td class="px-6 py-4">
-                                        {{\Carbon\Carbon::parse($item->fechaInicio)->format('d/m/Y (H:i:s)')}}
+                                        {{$item->acumulado}}
                                     </td>
                                     <td class="px-6 py-4">
                                         {{$empleado->horasMes}}
                                     </td>
                                     <td class="px-6 py-4">
-                                        {{$item->horas}}
+                                        {{$item->diferencia}}
                                     </td>
                                 </tr>
                             @endforeach

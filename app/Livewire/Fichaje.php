@@ -2,14 +2,11 @@
 
 namespace App\Livewire;
 
-use App\Http\Controllers\DashboardController;
 use App\Livewire\Forms\FormFichaje;
 use App\Models\Fichar;
 use App\Models\User;
-use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
-use function Laravel\Prompts\alert;
 
 class Fichaje extends Component
 {

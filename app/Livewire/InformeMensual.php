@@ -142,7 +142,6 @@ class InformeMensual extends Component
                 ->where('fechaFin', '<', $this->fechaFin)
                 ->orderBy('fechaInicio', 'desc')
                 ->get(),
-
         ];
 
         $pdf = Pdf::loadView('livewire.informe', $data);
