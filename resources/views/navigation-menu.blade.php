@@ -13,20 +13,20 @@
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link href="{{ route('inicio') }}" :active="request()->routeIs('inicio')">
-                        {{ __('Calendario') }}
+                       <i class="me-2 fa-solid fa-calendar-days"></i> {{ __('Calendario') }} 
                     </x-nav-link>
                     @if(Auth::user()->admin)
                     <x-nav-link href="{{ route('informe') }}" :active="request()->routeIs('informe')">
-                        {{ __('Informe') }}
+                       <i class="me-2 fa-solid fa-table-list"></i>  {{ __('Informe') }}
                     </x-nav-link>
                     <x-nav-link href="{{ route('acumulado') }}" :active="request()->routeIs('acumulado')">
-                        {{ __('Informe Acumulado') }}
+                        <i class="me-2 fa-solid fa-clipboard-list"></i> {{ __('Informe Acumulado') }}
                     </x-nav-link>
                     <x-nav-link href="{{ route('listado') }}" :active="request()->routeIs('listado')">
-                        {{ __('Fichajes') }}
+                       <i class="me-2 fa-solid fa-business-time"></i> {{ __('Fichajes') }}
                     </x-nav-link>
                     <x-nav-link href="{{ route('show-users') }}" :active="request()->routeIs('show-users')">
-                        {{ __('Listado de Usuarios') }}
+                       <i class="me-2 fa-solid fa-users"></i> {{ __('Listado de Usuarios') }}
                     </x-nav-link>
                     @endif
                 </div>

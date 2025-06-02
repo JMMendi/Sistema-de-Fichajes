@@ -63,7 +63,7 @@
                                 @if($fecha == \Carbon\Carbon::parse($item->fechaInicio)->format('d-m-Y'))
                                 <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200">
                                     <td class="px-6 py-4">
-                                        {{\Carbon\Carbon::parse($item->fechaInicio)->format('l')}}
+                                        {{\Carbon\Carbon::parse($item->fechaInicio)->translatedFormat('l')}}
                                     </td>
                                     <td class="px-6 py-4">
                                         {{\Carbon\Carbon::parse($item->fechaInicio)->format('d/m/Y (H:i:s)')}}
@@ -91,11 +91,11 @@
                                 <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200">
                                     <td @class([ 'px-6 py-4' , 'bg-red-200'=> \Carbon\Carbon::create($fecha)->isWeekend(),
                                         ])>
-                                        {{\Carbon\Carbon::parse($fecha)->format('l')}}
+                                        {{\Carbon\Carbon::parse($fecha)->translatedFormat('l')}}
                                     </td>
                                     <td @class([ 'px-6 py-4' , 'bg-red-200'=> \Carbon\Carbon::create($fecha)->isWeekend(),
                                         ])>
-                                        {{\Carbon\Carbon::parse($fecha)->format('d/m/Y')}}
+                                        {{\Carbon\Carbon::parse($fecha)->translatedFormat('d/m/Y')}}
                                     </td>
                                     <td @class([ 'px-6 py-4' , 'bg-red-200'=> \Carbon\Carbon::create($fecha)->isWeekend(),
                                         ])>
@@ -144,7 +144,7 @@
 
 
             <div class="flex justify-center mt-5">
-                <button type="button" wire:click="generarPdf" class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Descargar en PDF</button>
+             <button type="button" wire:click="generarPdf" class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"> <i class="me-2 fa-solid fa-file-pdf"></i> Descargar en PDF</button>
             </div>
         </section>
 

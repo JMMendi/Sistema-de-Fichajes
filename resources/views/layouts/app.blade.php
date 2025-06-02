@@ -80,6 +80,21 @@
                   }
                 })
             })
+        Livewire.on('onBorrarFichaje', id => {
+                Swal.fire({
+                  title: "¿Está seguro?",
+                  text: "¿De verdad quiere eliminar este fichaje?",
+                  icon: "warning",
+                  showCancelButton: true,
+                  confirmButtonColor: "#3085d6",
+                  cancelButtonColor: "#d33",
+                  confirmButtonText: "Sí, por favor."
+                }).then((result) => {
+                  if (result.isConfirmed) {
+                    Livewire.dispatchTo('show-fichas', 'onConfirmar', id);
+                  }
+                })
+            })
     </script>
 
 <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>

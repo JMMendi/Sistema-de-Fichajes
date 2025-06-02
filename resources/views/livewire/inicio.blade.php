@@ -1,6 +1,6 @@
 <x-plantilla.self>
-    <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-        <div class="flex justify-center mt-3 mb-3">
+    <section class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
+        <article class="flex justify-center mt-3 mb-3">
             @if(count($fichaje) < 1)
                 <div class="mb-5 mt-5">
                 @livewire('fichar-entrada')
@@ -15,8 +15,9 @@
                     @livewire('festividades')
                 </div>
             @endif
-        </div>
-    <div>
+        </article>
+        <article>
         @livewire('calendario')
-    </div>
+        </article>
+    </section>
 </x-plantilla.self>

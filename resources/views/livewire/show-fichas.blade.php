@@ -90,6 +90,9 @@
                         <button wire:click="edit({{$item->fichaId}})">
                             <i class="fas fa-edit text-xl text-green-700"></i>
                         </button>
+                        <button wire:click="confirmarBorrarFichaje({{$item->fichaId}})">
+                            <i class="fas fa-trash text-xl text-gray-700"></i>
+                        </button>
                     </td>
                 </tr>
                 @endforeach

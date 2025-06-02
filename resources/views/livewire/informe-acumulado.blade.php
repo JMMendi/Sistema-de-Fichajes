@@ -52,7 +52,7 @@
                         @foreach($fichas as $item)
                         <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200">
                             <td class="px-6 py-4">
-                                {{\Carbon\Carbon::parse($item->fecha)->format('M Y')}}
+                                {{\Carbon\Carbon::parse($item->fecha)->translatedFormat('F Y')}}
                             </td>
                             <td class="px-6 py-4">
                                 {{$item->acumulado}}

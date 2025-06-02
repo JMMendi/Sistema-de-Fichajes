@@ -58,7 +58,7 @@
 
                 <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200">
                     <td class="px-6 py-4">
-                        {{$item->fechaInicio->format('l')}}
+                        {{$item->fechaInicio->translatedFormat('l')}}
                     </td>
                     <td class="px-6 py-4">
                         {{$item->fechaInicio}}
@@ -81,7 +81,7 @@
                 <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200">
                     <td @class([ 'px-6 py-4' , 'bg-red-200'=> \Carbon\Carbon::create($fecha)->isWeekend(),
                         ])>
-                        {{\Carbon\Carbon::parse($fecha)->format('l')}}
+                        {{\Carbon\Carbon::parse($fecha)->translatedFormat('l')}}
                     </td>
                     <td @class([ 'px-6 py-4' , 'bg-red-200'=> \Carbon\Carbon::create($fecha)->isWeekend(),
                         ])>

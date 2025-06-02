@@ -49,9 +49,6 @@ class Acumulado extends Component
                 ->groupBy('user_id', "fecha")
                 ->get();
         }
-
-        // dd($fichas[1]->fecha);
-
         $this->fichas = $fichas;
 
         $this->empleado = User::findOrFail($this->user_id);

@@ -9,21 +9,15 @@ Sistema de Fichaje
 
 ## ¿En qué consiste el proyecto?
 Es un sistema que permite a los usuarios fichar la entrada y la salida del horario laboral. El empleado solo podrá fichar mientras
-que el administrador podrá gestionar y modificar tanto los fichajes como los usuarios y podrá generar informes mensuales en PDF.
+que el administrador podrá gestionar y modificar tanto los fichajes como los usuarios y podrá generar informes en PDF.
 
 
-## Contributing
+## Instalación del Proyecto
+Descargando la aplicación en formato Zip, descomprimalo en la carpeta deseada. Localice el archivo env.example en la carpeta raiz
+de la aplicación y renómbrelo a .env (Puede copiar env.example para tener siempre una copia de seguridad). Abra el archivo con el IDE a su elección y modifique las variables pertinentes a sus necesidades.
 
-
-
-## Code of Conduct
-
-
-
-## Security Vulnerabilities
-
-
-
-## License
+## Licencia
+Creative Commons 
+CC BY
 
 

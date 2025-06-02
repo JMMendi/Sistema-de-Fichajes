@@ -34,5 +34,5 @@
         // info.dateStr
     </script>
 
-    <div class="m-3 p-3" id='calendar'></div>
+    <article class="m-3 p-3" id='calendar'></article>
 </div>
