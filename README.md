@@ -16,6 +16,9 @@ que el administrador podrá gestionar y modificar tanto los fichajes como los us
 Descargando la aplicación en formato Zip, descomprimalo en la carpeta deseada. Localice el archivo env.example en la carpeta raiz
 de la aplicación y renómbrelo a .env (Puede copiar env.example para tener siempre una copia de seguridad). Abra el archivo con el IDE a su elección y modifique las variables pertinentes a sus necesidades.
 
+## Autoría
+Juan Manuel Mendizábal Amat. Estudiante 2ºDAW del instituo I.E.S Al-Ándalus.
+
 ## Licencia
 Creative Commons 
 CC BY
