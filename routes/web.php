@@ -2,6 +2,7 @@
 
 use App\Http\Middleware\isAdminMiddleware;
 use App\Livewire\Acumulado;
+use App\Livewire\Excedencias;
 use App\Livewire\InformeMensual;
 use App\Livewire\Inicio;
 use App\Livewire\RegistroUsuarios;
@@ -17,6 +18,7 @@ Route::middleware([
 ])->group(function () {
     Route::get('/', Inicio::class)->name('inicio');
     Route::get('/inicio', Inicio::class)->name('inicio');
+    Route::get('/excedencias', Excedencias::class)->name('excedencias');
     Route::get('/informe', InformeMensual::class)->name('informe')->middleware(isAdminMiddleware::class);
     Route::get('/acumulado', Acumulado::class)->name('acumulado')->middleware(isAdminMiddleware::class);
     Route::get('/show-fichas', ShowFichas::class)->name('listado')->middleware(isAdminMiddleware::class);

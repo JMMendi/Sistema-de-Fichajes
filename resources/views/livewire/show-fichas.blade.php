@@ -149,15 +149,15 @@
                     <label for="motivos" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Motivos de la Salida</label>
                     @foreach($motivos as $item)
                     <div class="flex items-center mb-4">
-                        <input id="{{$item}}Salida" type="radio" name="{{$item}}Salida" value="{{$item}}" wire:model="uform.motivoSalida" class="w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600">
-                        <label for="{{$item}}Salida" class="block ms-2  text-sm font-medium text-gray-900 dark:text-gray-300">
+                        <input id="{{$item}}S" type="radio" name="{{$item}}S" value="{{$item}}" wire:model="uform.motivoSalida" class="w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600">
+                        <label for="{{$item}}S" class="block ms-2  text-sm font-medium text-gray-900 dark:text-gray-300">
                             {{$item}}
                         </label>
                     </div>
                     @endforeach
                     <div class="flex items-center mb-4">
-                        <input id="motivoSalida" type="radio" name="motivoSalida" id="motivoSalida" value="" wire:model="uform.motivoSalida" class="w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600">
-                        <label for="no" class="block ms-2  text-sm font-medium text-gray-900 dark:text-gray-300">
+                        <input id="motivoS" type="radio" name="motivoSalida" id="motivoSalida" value="" wire:model="uform.motivoSalida" class="w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600">
+                        <label for="motivoS" class="block ms-2  text-sm font-medium text-gray-900 dark:text-gray-300">
                             Todavía no
                         </label>
                     </div>

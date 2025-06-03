@@ -15,6 +15,9 @@
                     <x-nav-link href="{{ route('inicio') }}" :active="request()->routeIs('inicio')">
                        <i class="me-2 fa-solid fa-calendar-days"></i> {{ __('Calendario') }} 
                     </x-nav-link>
+                    <x-nav-link href="{{ route('excedencias') }}" :active="request()->routeIs('excedencias')">
+                       <i class="me-2 fa-solid fa-calendar-days"></i> {{ __('Calendario Excedencias') }} 
+                    </x-nav-link>
                     @if(Auth::user()->admin)
                     <x-nav-link href="{{ route('informe') }}" :active="request()->routeIs('informe')">
                        <i class="me-2 fa-solid fa-table-list"></i>  {{ __('Informe') }}

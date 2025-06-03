@@ -22,7 +22,7 @@ class FormFichaje extends Form
 
     public ?string $motivoSalida = "";
 
-    #[Rule(['required', 'exists:users,id'])]
+    #[Rule(['required', 'exists:users,id'])]    
     public int $user_id = -1;
 
     #[Rule(['required', 'date'])]
@@ -43,8 +43,12 @@ class FormFichaje extends Form
     {
         $this->tipo = "Manual";
 
-        if (!in_array($this->motivoSalida, $this->listaMotivos()) || $this->fechaFin = null) {
+        if (!in_array($this->motivoSalida, $this->listaMotivos()) || !$this->fechaFin) {
             $this->motivoSalida = null;
+        }
+
+        if ($this->fechaFin == -1) {
+            $this->fechaFin = null;
         }
 
         $this->validate();
@@ -71,7 +75,6 @@ class FormFichaje extends Form
                 'latidudSalida' => 36.8497134,
                 'longitudSalida' => -2.4486812,
                 'motivoEntrada' => $this->motivoEntrada,
-
             ]);
         }
     }

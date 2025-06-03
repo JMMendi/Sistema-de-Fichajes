@@ -21,3 +21,7 @@ yarn-error.log
 /.nova
 /.vscode
 /.zed
+/app/Livewire/Excedencias.php
+/app/models/Excedencia.php
+/database/migrations/2025_06_02_123650_create_excedencias.php
+/resources/views/livewire/excedencias.blade.php

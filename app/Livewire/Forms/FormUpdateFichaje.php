@@ -67,7 +67,6 @@ class FormUpdateFichaje extends Form
             $this->motivoSalida = null;
             $this->ficha->update([
                 'fechaInicio' => Carbon::parse($this->fechaInicio),
-                'fechaFin' => Carbon::parse($this->fechaFin),
                 'tipo' => $this->tipo,
                 'modificado' => true,
                 'motivoEntrada' => $this->motivoEntrada,

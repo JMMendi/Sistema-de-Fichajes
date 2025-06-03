@@ -71,4 +71,8 @@ class User extends Authenticatable
     public function fichars() : HasMany {
         return $this->hasMany(Fichar::class);
     }
+
+    public function excedencias() : HasMany {
+        return $this->hasMany(Excedencia::class);
+    }
 }
