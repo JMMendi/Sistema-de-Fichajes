@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use App\Livewire\Forms\FormUpdateFichaje;
 use App\Models\Fichar;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\On;
 use Livewire\Component;
@@ -38,6 +39,7 @@ class ShowFichas extends Component
                 "motivoEntrada",
                 "motivoSalida",
                 'fichars.created_at',
+                'user_id',
                 DB::raw('hour(timediff(fechaInicio, fechaFin)) as horas')
             )
             ->where(function ($q) {
@@ -50,11 +52,40 @@ class ShowFichas extends Component
             ->orderBy($this->campo, $this->orden)
             ->paginate(10);
 
+        $fichasUsuario = DB::table('fichars')
+            ->join('users', 'user_id', '=', 'users.id')
+            ->select(
+                'nombre',
+                'fechaInicio',
+                'fechaFin',
+                'tipo',
+                'fichars.id as fichaId',
+                'latitudEntrada',
+                'longitudEntrada',
+                'latitudSalida',
+                'longitudSalida',
+                "motivoEntrada",
+                "motivoSalida",
+                'fichars.created_at',
+                'user_id',
+                DB::raw('hour(timediff(fechaInicio, fechaFin)) as horas')
+            )
+            ->where('user_id', '=', Auth::user()->id)
+            ->where(function ($q) {
+                $q->where('nombre', 'like', "%{$this->texto}%")
+                    ->orWhere('fechaInicio', 'like', "%{$this->texto}%")
+                    ->orWhere('motivoEntrada', 'like', "%{$this->texto}%")
+                    ->orWhere('motivoSalida', 'like', "%{$this->texto}%")
+                    ->orWhere('tipo', 'like', "%{$this->texto}%");
+            })
+            ->orderBy($this->campo, $this->orden)
+            ->paginate(10);
+        
         $prueba = new Fichar();
         $motivos = $prueba->arrayMotivos();
 
 
-        return view('livewire.show-fichas', compact("fichas", "motivos"));
+        return view('livewire.show-fichas', compact("fichas", "motivos", "fichasUsuario"));
     }
 
     public function ordenar(string $campo)

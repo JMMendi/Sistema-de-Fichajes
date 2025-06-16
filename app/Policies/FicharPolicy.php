@@ -47,6 +47,7 @@ class FicharPolicy
     public function delete(User $user, Fichar $fichar): bool
     {
         return Auth::user()->admin;
+    
     }
 
     /**

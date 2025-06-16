@@ -9,6 +9,8 @@ use Livewire\Form;
 
 class FormRegistroUsuarios extends Form
 {
+    public string $normal = "";
+
     #[Rule(['required', 'string', 'min:3', 'max:100', 'unique:users,username'])]
     public string $username = "";
 
@@ -27,7 +29,15 @@ class FormRegistroUsuarios extends Form
     #[Rule(['required', 'string', 'regex:/^[0-9]{8}[A-Z]$/'])]
     public string $DNI = "";
 
+    #[Rule('boolean')]
+    public ?bool $superior = null;
+
+    #[Rule('boolean')]
+    public ?bool $admin = null;
+
     public function fCrearUsuario() {
+        $this->privilegios();
+
         $this->validate();
 
         User::create([
@@ -37,7 +47,24 @@ class FormRegistroUsuarios extends Form
             'horasMes' => $this->horasMes,
             'horasDia' => $this->horasDia,
             'DNI' => $this->DNI,
+            'superior' => $this->superior,
+            'admin' => $this->admin,
         ]);
+    }
+
+    public function privilegios() {
+        if($this->normal) {
+            $this->superior = false;
+            $this->admin = false;
+        }
+
+        if($this->admin) {
+            $this->superior = false;
+        }
+        
+        if($this->superior) {
+            $this->admin = false;
+        }
     }
 
     public function resetear() {

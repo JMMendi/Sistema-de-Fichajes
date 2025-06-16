@@ -12,6 +12,7 @@ class FicharEntrada extends Component
 {
     public bool $abrirFicharEntrada = false;
     public FormFichaje $cform;
+    
     public $latitude = -1;
     public $longitude = -1;
 
@@ -26,7 +27,6 @@ class FicharEntrada extends Component
     public function confirmarEntrada() {
         $this->cform->formStoreEntrada($this->latitude, $this->longitude);
         
-        $this->dispatch('entrada')->to(Calendario::class);
         $this->dispatch('mensaje', (Auth::user()->nombre." ha fichado para entrar a las: ".Carbon::now()->format('H:i:s')));
         $this->cerrarModal();
     }

@@ -9,6 +9,16 @@
         </x-slot>
         <x-slot name="content">
             <section class="mb-5">
+                @if(Auth::user()->superior)
+                <label for="user_id" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Usuario</label>
+                <select name="user_id" wire:model="cform.user_id" id="user_id">
+                    @foreach($usuarios as $item)
+                        @if($item->id == Auth::user()->id)
+                        <option value="{{$item->id}}">{{$item->nombre}}</option>
+                        @endif
+                    @endforeach
+                </select>
+                @else
                 <label for="user_id" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Usuario</label>
                 <select name="user_id" wire:model="cform.user_id" id="user_id">
                     <option value="">Seleccione un Usuario</option>
@@ -16,6 +26,8 @@
                     <option value="{{$item->id}}">{{$item->nombre}}</option>
                     @endforeach
                 </select>
+                @endif
+
                 <x-input-error for="cform.user_id" />
             </section>
             <!-- Ponemos una hora de Inicio y una hora de Salida -->

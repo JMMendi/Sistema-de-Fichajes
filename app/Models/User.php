@@ -33,6 +33,8 @@ class User extends Authenticatable
         'horasMes',
         'horasDia',
         'DNI',
+        'superior',
+        'admin',
     ];
 
     /**
@@ -73,6 +75,6 @@ class User extends Authenticatable
     }
 
     public function excedencias() : HasMany {
-        return $this->hasMany(Excedencia::class);
+        return $this->hasMany(Vacacion::class);
     }
 }

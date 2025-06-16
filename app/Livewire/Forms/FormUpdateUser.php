@@ -12,6 +12,8 @@ class FormUpdateUser extends Form
 
     public string $username = "";
 
+    public string $normal = "";
+
     #[Rule(['required', 'string', 'min:3', 'max:120'])]
     public string $nombre = "";
 
@@ -27,7 +29,14 @@ class FormUpdateUser extends Form
     #[Rule(['required', 'string', 'regex:/^[0-9]{8}[A-Z]$/'])]
     public string $DNI = "";
 
-    public function setUser(User $empleado) {
+    #[Rule('boolean')]
+    public ?bool $superior;
+
+    #[Rule('boolean')]
+    public ?bool $admin;
+
+    public function setUser(User $empleado)
+    {
         $this->empleado = $empleado;
 
         $this->username = strtolower($empleado->username);
@@ -35,10 +44,18 @@ class FormUpdateUser extends Form
         $this->horasMes = $empleado->horasMes;
         $this->horasDia = $empleado->horasDia;
         $this->DNI = $empleado->DNI;
+        $this->superior = $empleado->superior;
+        $this->admin = $empleado->admin;
 
+        if(!$this->admin && !$this->superior) {
+            $this->normal = "true";
+        }
     }
 
-    public function fUpdateUser() {
+    public function fUpdateUser()
+    {
+        $this->privilegios();
+
         $this->validate();
 
         if ($this->password != "") {
@@ -49,6 +66,8 @@ class FormUpdateUser extends Form
                 'horasMes' => $this->horasMes,
                 'horasDia' => $this->horasDia,
                 'DNI' => $this->DNI,
+                'superior' => $this->superior,
+                'admin' => $this->admin,
             ]);
         } else {
             $this->empleado->update([
@@ -57,19 +76,41 @@ class FormUpdateUser extends Form
                 'horasMes' => $this->horasMes,
                 'horasDia' => $this->horasDia,
                 'DNI' => $this->DNI,
+                'superior' => $this->superior,
+                'admin' => $this->admin,
+
             ]);
         }
     }
 
-    public function resetear() {
+    public function privilegios()
+    {
+        if($this->normal) {
+            $this->superior = false;
+            $this->admin = false;
+        }
+
+        if($this->admin) {
+            $this->superior = false;
+        }
+        
+        if($this->superior) {
+            $this->admin = false;
+        }
+
+    }
+
+    public function resetear()
+    {
         $this->reset();
         $this->resetValidation();
     }
 
-    
-    public function rules() : array {
+
+    public function rules(): array
+    {
         return [
-            'username' => ['required', 'string', 'min:3', 'max:100', 'unique:users,username,'.$this->empleado->id],
+            'username' => ['required', 'string', 'min:3', 'max:100', 'unique:users,username,' . $this->empleado->id],
         ];
     }
 }

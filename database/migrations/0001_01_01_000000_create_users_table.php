@@ -20,6 +20,7 @@ return new class extends Migration
             $table->decimal('horasDia', total:3, places:1);
             $table->integer('horasMes');
             $table->boolean('admin')->default(false);
+            $table->boolean('superior')->default(false);
             $table->rememberToken();
             $table->foreignId('current_team_id')->nullable();
             $table->string('profile_photo_path', 2048)->nullable();

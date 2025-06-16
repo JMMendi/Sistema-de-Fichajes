@@ -15,8 +15,8 @@
                     <x-nav-link href="{{ route('inicio') }}" :active="request()->routeIs('inicio')">
                        <i class="me-2 fa-solid fa-calendar-days"></i> {{ __('Calendario') }} 
                     </x-nav-link>
-                    <x-nav-link href="{{ route('excedencias') }}" :active="request()->routeIs('excedencias')">
-                       <i class="me-2 fa-solid fa-calendar-days"></i> {{ __('Calendario Excedencias') }} 
+                    <x-nav-link href="{{ route('vacaciones') }}" :active="request()->routeIs('vacaciones')">
+                       <i class="me-2 fa-solid fa-plane-departure"></i> {{ __('Calendario Vacaciones') }} 
                     </x-nav-link>
                     @if(Auth::user()->admin)
                     <x-nav-link href="{{ route('informe') }}" :active="request()->routeIs('informe')">
@@ -25,9 +25,13 @@
                     <x-nav-link href="{{ route('acumulado') }}" :active="request()->routeIs('acumulado')">
                         <i class="me-2 fa-solid fa-clipboard-list"></i> {{ __('Informe Acumulado') }}
                     </x-nav-link>
+                    @endif
+                    @if(Auth::user()->admin || Auth::user()->superior)
                     <x-nav-link href="{{ route('listado') }}" :active="request()->routeIs('listado')">
                        <i class="me-2 fa-solid fa-business-time"></i> {{ __('Fichajes') }}
                     </x-nav-link>
+                    @endif
+                    @if(Auth::user()->admin)
                     <x-nav-link href="{{ route('show-users') }}" :active="request()->routeIs('show-users')">
                        <i class="me-2 fa-solid fa-users"></i> {{ __('Listado de Usuarios') }}
                     </x-nav-link>

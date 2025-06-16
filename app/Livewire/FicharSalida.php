@@ -27,7 +27,6 @@ class FicharSalida extends Component
     {
         $this->cform->formStoreSalida($this->latitude, $this->longitude);
 
-        $this->dispatch('salida')->to(Calendario::class);
         $this->dispatch('mensaje', (Auth::user()->nombre . " ha fichado para salir a las: " . Carbon::now()->format('H:i:s')));
         $this->cerrarModal();
     }

@@ -18,8 +18,8 @@ return new class extends Migration
             $table->boolean('modificado')->default(false);
             $table->float('latitudEntrada');
             $table->float('longitudEntrada');
-            $table->float('latitudSalida');
-            $table->float('longitudSalida');
+            $table->float('latitudSalida')->nullable();
+            $table->float('longitudSalida')->nullable();
             $table->enum('motivoEntrada', ['Rutina', 'Atraso', 'Médico', 'Almuerzo', 'Descanso', 'Otro']);
             $table->enum('motivoSalida', ['Rutina', 'Atraso', 'Médico', 'Almuerzo', 'Descanso', 'Otro'])->nullable();
             $table->enum('tipo', ['Manual', 'Diario']);

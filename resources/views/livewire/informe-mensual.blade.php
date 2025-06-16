@@ -72,7 +72,8 @@
                                         {{\Carbon\Carbon::parse($item->fechaFin)->format('d/m/Y (H:i:s)')}}
                                     </td>
                                     <td class="px-6 py-4">
-                                        @if(\Carbon\Carbon::parse($item->fechaInicio)->format('i') > \Carbon\Carbon::parse($item->fechaFin)->format('i'))
+                                        @if((\Carbon\Carbon::parse($item->fechaFin)->format('his') - \Carbon\Carbon::parse($item->fechaInicio)->format('his') <= 1500)
+                                        && (\Carbon\Carbon::parse($item->fechaFin)->format('his') - \Carbon\Carbon::parse($item->fechaInicio)->format('his') >= 500))
                                         {{($item->horas)+1}}
                                         @php
                                             $conteo += 1;

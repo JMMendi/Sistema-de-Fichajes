@@ -22,7 +22,7 @@ class FormFichaje extends Form
 
     public ?string $motivoSalida = "";
 
-    #[Rule(['required', 'exists:users,id'])]    
+    #[Rule(['required', 'exists:users,id'])]
     public int $user_id = -1;
 
     #[Rule(['required', 'date'])]
@@ -51,31 +51,62 @@ class FormFichaje extends Form
             $this->fechaFin = null;
         }
 
+        if(Auth::user()->superior) {
+            $this->user_id = Auth::user()->id;
+        }
+
         $this->validate();
 
-        if ($this->fechaFin != null) {
-            Fichar::create([
-                'fechaInicio' => Carbon::parse($this->fechaInicio),
-                'fechaFin' => Carbon::parse($this->fechaFin),
-                'tipo' => $this->tipo,
-                'user_id' => $this->user_id,
-                'latidudEntrada' => 36.8497134,
-                'longitudEntrada' => -2.4486812,
-                'motivoEntrada' => $this->motivoEntrada,
-                'motivoSalida' => $this->motivoSalida,
+        if (Auth::user()->superior) {
+            if ($this->fechaFin != null) {
+                Fichar::create([
+                    'fechaInicio' => Carbon::parse($this->fechaInicio),
+                    'fechaFin' => Carbon::parse($this->fechaFin),
+                    'tipo' => $this->tipo,
+                    'user_id' => $this->user_id,
+                    'latidudEntrada' => 36.8497134,
+                    'longitudEntrada' => -2.4486812,
+                    'motivoEntrada' => $this->motivoEntrada,
+                    'motivoSalida' => $this->motivoSalida,
 
-            ]);
+                ]);
+            } else {
+                Fichar::create([
+                    'fechaInicio' => Carbon::parse($this->fechaInicio),
+                    'tipo' => $this->tipo,
+                    'user_id' => $this->user_id,
+                    'latidudEntrada' => 36.8497134,
+                    'longitudEntrada' => -2.4486812,
+                    'latidudSalida' => 36.8497134,
+                    'longitudSalida' => -2.4486812,
+                    'motivoEntrada' => $this->motivoEntrada,
+                ]);
+            }
         } else {
-            Fichar::create([
-                'fechaInicio' => Carbon::parse($this->fechaInicio),
-                'tipo' => $this->tipo,
-                'user_id' => $this->user_id,
-                'latidudEntrada' => 36.8497134,
-                'longitudEntrada' => -2.4486812,
-                'latidudSalida' => 36.8497134,
-                'longitudSalida' => -2.4486812,
-                'motivoEntrada' => $this->motivoEntrada,
-            ]);
+            if ($this->fechaFin != null) {
+                Fichar::create([
+                    'fechaInicio' => Carbon::parse($this->fechaInicio),
+                    'fechaFin' => Carbon::parse($this->fechaFin),
+                    'tipo' => $this->tipo,
+                    'user_id' => $this->user_id,
+                    'latidudEntrada' => 36.8497134,
+                    'longitudEntrada' => -2.4486812,
+                    'motivoEntrada' => $this->motivoEntrada,
+                    'motivoSalida' => $this->motivoSalida,
+
+                ]);
+            } else {
+                Fichar::create([
+                    'fechaInicio' => Carbon::parse($this->fechaInicio),
+                    'tipo' => $this->tipo,
+                    'user_id' => $this->user_id,
+                    'latidudEntrada' => 36.8497134,
+                    'longitudEntrada' => -2.4486812,
+                    'latidudSalida' => 36.8497134,
+                    'longitudSalida' => -2.4486812,
+                    'motivoEntrada' => $this->motivoEntrada,
+                ]);
+            }
         }
     }
 
@@ -127,18 +158,12 @@ class FormFichaje extends Form
 
     public function rules(): array
     {
-        $regla = "";
-        if ($this->fechaFin) {
-            $regla = "required";
-        } else {
-            $regla = "nullable";
-        }
         return [
             'fechaFin' => ['nullable', 'date', 'after_or_equal:' . $this->fechaInicio],
-            'motivoEntrada' => ['required', "in:".implode(',', $this->listaMotivos())],
-            'motivoSalida' => ['nullable', "in:".implode(',', $this->listaMotivos())],
-            'latitudSalida' => [$regla, 'numeric'],
-            'longitudSalida' => [$regla, 'numeric'],
+            'motivoEntrada' => ['required', "in:" . implode(',', $this->listaMotivos())],
+            'motivoSalida' => ['nullable', "in:" . implode(',', $this->listaMotivos())],
+            'latitudSalida' => ["nullable", 'numeric'],
+            'longitudSalida' => ["nullable", 'numeric'],
 
         ];
     }

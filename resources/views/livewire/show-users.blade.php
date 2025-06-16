@@ -70,7 +70,7 @@
         </x-slot>
         <x-slot name="content">
             <div class="flex justify-center">
-                <section class="w-1/2 flex flex-col shadow-xl border-2 border-black p-5 rounded-xl">
+                <section class="w-2/3 flex flex-col shadow-xl border-2 border-black p-5 rounded-xl">
                     <article class="mb-5">
                         <label for="username" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nombre de Usuario</label>
                         <input type="text" id="username" wire:model="uform.username" name="username" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
@@ -103,6 +103,28 @@
                             <div class="tooltip-arrow" data-popper-arrow></div>
                         </div>
                         <x-input-error for="uform.horasDia" />
+
+                    </article>
+                    <article class="mb-5">
+                        <label for="privilegios" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Privilegios</label>
+                        <div class="flex">
+                            <div>
+                                <input id="uSuperior" wire:model="uform.superior" type="radio" name="privilegio" value="true" class="w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600">
+                                <label for="uSuperior" class="me-5">Superior</label>
+                            </div>
+                            <div>
+                                <input id="uAdmin" wire:model="uform.admin" type="radio" name="privilegio" value="true" class="w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600">
+                                <label for="uAdmin">Administrador</label>
+                            </div>
+                            <div>
+                                @if(!$uform->admin && !$uform->superior)
+                                <input id="uNormal" type="radio" wire:model="uform.normal" name="privilegio" value="true" class="ms-5 w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600">
+                                @else
+                                <input id="uNormal" type="radio" wire:model="uform.normal" name="privilegio" value="true" class="ms-5 w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600">
+                                @endif
+                                <label for="uNormal">Empleado</label>
+                            </div>
+                        </div>
 
                     </article>
                     <article class="mb-5">
