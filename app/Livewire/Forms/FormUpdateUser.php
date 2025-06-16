@@ -47,9 +47,6 @@ class FormUpdateUser extends Form
         $this->superior = $empleado->superior;
         $this->admin = $empleado->admin;
 
-        if(!$this->admin && !$this->superior) {
-            $this->normal = "true";
-        }
     }
 
     public function fUpdateUser()

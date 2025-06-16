@@ -8,8 +8,6 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use Carbon\CarbonInterval;
 use Carbon\CarbonPeriod;
-use DateInterval;
-use DatePeriod;
 use DateTime;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
@@ -53,14 +51,14 @@ class InformeMensual extends Component
                 'fechaInicio',
                 'fechaFin',
                 'tipo',
-                DB::raw('round(timestampdiff(MINUTE, fechaInicio, fechaFin ) / 60) as horas')
+                DB::raw('truncate((timestampdiff(MINUTE, fechaInicio, fechaFin ) / 60), 2) as horas')
             )
                 ->where('user_id', '=', $this->user_id)
                 ->where('fechaInicio', '>', $this->fechaInicio)
                 ->where('fechaFin', '<', $this->fechaFin)
                 ->orderBy('fechaInicio', 'desc')
                 ->get();
-            $this->fichaHoras = Fichar::select(DB::raw('sum(hour(timediff(fechaInicio, fechaFin))) as horasTotales'))
+            $this->fichaHoras = Fichar::select(DB::raw('sum(round(timestampdiff(MINUTE, fechaInicio, fechaFin ) / 60)) as horasTotales'))
                 ->where('user_id', '=', $this->user_id)
                 ->where('fechaInicio', '>', $this->fechaInicio)
                 ->where('fechaFin', '<', $this->fechaFin)

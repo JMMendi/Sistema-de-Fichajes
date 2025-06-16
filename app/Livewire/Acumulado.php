@@ -40,7 +40,7 @@ class Acumulado extends Component
             $sub = Fichar::select(
                 'user_id',
                 DB::raw('DATE_FORMAT(fechaInicio, "%Y-%m") as fecha'),
-                DB::raw("HOUR(TIMEDIFF(fechaInicio, fechaFin)) as horas")
+                DB::raw("round(timestampdiff(MINUTE, fechaInicio, fechaFin) / 60) as horas")
             )
                 ->where('user_id', '=', $this->user_id);
 
@@ -74,7 +74,7 @@ class Acumulado extends Component
         $sub = Fichar::select(
             'user_id',
             DB::raw('DATE_FORMAT(fechaInicio, "%Y-%m") as fecha'),
-            DB::raw("HOUR(TIMEDIFF(fechaInicio, fechaFin)) as horas")
+            DB::raw("round(timestampdiff(MINUTE, fechaInicio, fechaFin) / 60) as horas")
         )
             ->where('user_id', '=', $this->user_id);
 
