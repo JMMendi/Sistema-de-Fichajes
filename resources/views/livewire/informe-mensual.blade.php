@@ -72,15 +72,7 @@
                                         {{\Carbon\Carbon::parse($item->fechaFin)->format('d/m/Y (H:i:s)')}}
                                     </td>
                                     <td class="px-6 py-4">
-                                        @if((\Carbon\Carbon::parse($item->fechaFin)->format('his') - \Carbon\Carbon::parse($item->fechaInicio)->format('his') <= 1500)
-                                        && (\Carbon\Carbon::parse($item->fechaFin)->format('his') - \Carbon\Carbon::parse($item->fechaInicio)->format('his') >= 500))
-                                        {{($item->horas)+1}}
-                                        @php
-                                            $conteo += 1;
-                                        @endphp
-                                        @else
                                         {{$item->horas}}
-                                        @endif
                                     </td>
                                     <td class="px-6 py-4">
                                         {{$item->tipo}}
@@ -133,7 +125,7 @@
                         <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200">
                             <td class="px-6 py-4">{{$empleado->horasMes}}</td>
                             @foreach($fichaHoras as $item)
-                            <td class="px-6 py-4">{{$item->horasTotales + $conteo}}</td>
+                            <td class="px-6 py-4">{{$item->horasTotales}}</td>
                             <td class="px-6 py-4">{{($empleado->horasMes) - ($item->horasTotales)}}</td>
                             @endforeach
 

@@ -46,12 +46,12 @@
 
                         <div class="flex">
                             <div>
-                                <input id="Superior" wire:model="cform.superior" type="radio" name="privilegio" value="true" class="w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600">
-                                <label for="Superior" class="me-5">Superior</label>
-                            </div>
-                            <div>
                                 <input id="admin" wire:model="cform.admin" checked type="radio" name="privilegio" value="true" class="w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600">
                                 <label for="admin">Administrador</label>
+                            </div>
+                            <div>
+                                <input id="Superior" wire:model="cform.superior" type="radio" name="privilegio" value="true" class="w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600">
+                                <label for="Superior" class="me-5">Superior</label>
                             </div>
                             <div>
                                 <input id="normal" checked type="radio" wire:model="cform.normal" name="privilegio" value="true" class="ms-5 w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600">

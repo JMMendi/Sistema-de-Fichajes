@@ -53,7 +53,7 @@ class InformeMensual extends Component
                 'fechaInicio',
                 'fechaFin',
                 'tipo',
-                DB::raw('hour(timediff(fechaInicio, fechaFin)) as horas')
+                DB::raw('round(timestampdiff(MINUTE, fechaInicio, fechaFin ) / 60) as horas')
             )
                 ->where('user_id', '=', $this->user_id)
                 ->where('fechaInicio', '>', $this->fechaInicio)
@@ -126,7 +126,7 @@ class InformeMensual extends Component
                 'fechaInicio',
                 'fechaFin',
                 'tipo',
-                DB::raw('hour(timediff(fechaInicio, fechaFin)) as horas')
+                DB::raw('round(timestampdiff(MINUTE, fechaInicio, fechaFin) / 60) as horas')
             )
                 ->where('user_id', '=', $this->user_id)
                 ->where('fechaInicio', '>', $this->fechaInicio)
@@ -136,7 +136,7 @@ class InformeMensual extends Component
             'fechaInicio' => $this->fechaPrincipio->format('d-m-Y'),
             'fechaFin' => $this->fechaFinal->format('d-m-Y'),
             'fechas' => $this->fechas,
-            'fichaHoras' => Fichar::select(DB::raw('sum(hour(timediff(fechaInicio, fechaFin))) as horasTotales'))
+            'fichaHoras' => Fichar::select(DB::raw('sum(round(timestampdiff(MINUTE, fechaInicio, fechaFin) / 60)) as horasTotales'))
                 ->where('user_id', '=', $this->user_id)
                 ->where('fechaInicio', '>', $this->fechaInicio)
                 ->where('fechaFin', '<', $this->fechaFin)

@@ -111,11 +111,15 @@
                         @endif
                     </td>
                     <td class="px-5 py-4">
+                        @if(!$item->fechaFin)
+
+                        @else
                         @if(\Carbon\Carbon::parse($item->fechaInicio)->format('i') > \Carbon\Carbon::parse($item->fechaFin)->format('i'))
                         {{($item->horas)+1}}
 
                         @else
                         {{$item->horas}}
+                        @endif
                         @endif
                     </td>
                     <td class="px-5 py-4">

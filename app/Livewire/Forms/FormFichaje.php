@@ -66,6 +66,8 @@ class FormFichaje extends Form
                     'user_id' => $this->user_id,
                     'latidudEntrada' => 36.8497134,
                     'longitudEntrada' => -2.4486812,
+                    'latidudSalida' => 36.8497134,
+                    'longitudSalida' => -2.4486812,
                     'motivoEntrada' => $this->motivoEntrada,
                     'motivoSalida' => $this->motivoSalida,
 
@@ -77,8 +79,6 @@ class FormFichaje extends Form
                     'user_id' => $this->user_id,
                     'latidudEntrada' => 36.8497134,
                     'longitudEntrada' => -2.4486812,
-                    'latidudSalida' => 36.8497134,
-                    'longitudSalida' => -2.4486812,
                     'motivoEntrada' => $this->motivoEntrada,
                 ]);
             }
@@ -91,6 +91,8 @@ class FormFichaje extends Form
                     'user_id' => $this->user_id,
                     'latidudEntrada' => 36.8497134,
                     'longitudEntrada' => -2.4486812,
+                    'latidudSalida' => 36.8497134,
+                    'longitudSalida' => -2.4486812,
                     'motivoEntrada' => $this->motivoEntrada,
                     'motivoSalida' => $this->motivoSalida,
 
@@ -102,8 +104,6 @@ class FormFichaje extends Form
                     'user_id' => $this->user_id,
                     'latidudEntrada' => 36.8497134,
                     'longitudEntrada' => -2.4486812,
-                    'latidudSalida' => 36.8497134,
-                    'longitudSalida' => -2.4486812,
                     'motivoEntrada' => $this->motivoEntrada,
                 ]);
             }
@@ -143,6 +143,8 @@ class FormFichaje extends Form
     {
         $this->latitudSalida = $latitud;
         $this->longitudSalida = $longitud;
+
+        // dd($this->latitudSalida);
         $fichaje = Fichar::where('user_id', '=', Auth::id())
             ->where('fechaFin', null)
             ->get();
@@ -154,6 +156,7 @@ class FormFichaje extends Form
             'longitudSalida' => $this->longitudSalida,
             'motivoSalida' => $this->motivoSalida,
         ]);
+
     }
 
     public function rules(): array

@@ -109,12 +109,12 @@
                         <label for="privilegios" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Privilegios</label>
                         <div class="flex">
                             <div>
-                                <input id="uSuperior" wire:model="uform.superior" type="radio" name="privilegio" value="true" class="w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600">
-                                <label for="uSuperior" class="me-5">Superior</label>
-                            </div>
-                            <div>
                                 <input id="uAdmin" wire:model="uform.admin" type="radio" name="privilegio" value="true" class="w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600">
                                 <label for="uAdmin">Administrador</label>
+                            </div>
+                            <div>
+                                <input id="uSuperior" wire:model="uform.superior" type="radio" name="privilegio" value="true" class="w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600">
+                                <label for="uSuperior" class="me-5">Superior</label>
                             </div>
                             <div>
                                 @if(!$uform->admin && !$uform->superior)
